@@ -9,7 +9,7 @@
     margin: auto;
     text-align: center;
     border: 5px white solid;
-    padding: 6vh;
+    padding: 2.7%;
     max-width: fit-content;
 }
 
@@ -44,10 +44,42 @@ a {
 }
 
 .card {
-    width: 18vw;
+    width: 25vw;
     height: 100%;
     color: white;
     background-color: none;
     border: 2px solid black;
     padding: 1%
+}
+
+/* ----------- iPhone X ----------- */
+
+/* Portrait and Landscape */
+@media only screen 
+    and (min-device-width: 375px) 
+    and (max-device-width: 812px) 
+    and (-webkit-min-device-pixel-ratio: 3) {
+    
+}
+
+/* Portrait */
+@media only screen 
+    and (min-device-width: 375px) 
+    and (max-device-width: 812px) 
+    and (-webkit-min-device-pixel-ratio: 3)
+    and (orientation: portrait) {
+        #title {
+            padding: 5vw;
+        }
+}
+
+/* Landscape */
+@media only screen 
+    and (min-device-width: 375px) 
+    and (max-device-width: 812px) 
+    and (-webkit-min-device-pixel-ratio: 3)
+    and (orientation: landscape) {
+        #title {
+            padding: 5vh;
+        }
 }
