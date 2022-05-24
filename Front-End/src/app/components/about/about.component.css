@@ -20,12 +20,10 @@ img {
 }
 
 #background {
-    overflow: hidden;
     background: url('https://render.fineartamerica.com/images/rendered/default/print/8/5.5/break/images/artworkimages/medium/2/dark-blue-grunge-background-caracterdesign.jpg') no-repeat;
     background-size: cover;
     -webkit-background-size: cover;
     -moz-background-size: cover;
     -o-background-size: cover;
     width: 100%;
-    min-height: 100vh;
 }
