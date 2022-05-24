@@ -99,6 +99,16 @@
             ],
             "scripts": []
           }
+        },
+        "deploy": {
+          "builder": "@angular/fire:deploy",
+          "options": {
+            "prerender": false,
+            "ssr": false,
+            "browserTarget": "Front-End:build:production",
+            "firebaseProject": "adventuring-with-the-banks",
+            "firebaseHostingSite": "adventuring-with-the-banks"
+          }
         }
       }
     }

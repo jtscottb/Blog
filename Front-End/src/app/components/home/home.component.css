@@ -1,0 +1,53 @@
+.container-fluid {
+    padding: 3%;
+    width: 100%;
+    background: url('https://st.depositphotos.com/1522993/4737/v/600/depositphotos_47372005-stock-illustration-orange-blue-background-with-triagles.jpg') no-repeat;
+    background-size: cover;
+}
+
+#title {
+    margin: auto;
+    text-align: center;
+    border: 5px white solid;
+    padding: 6vh;
+    max-width: fit-content;
+}
+
+#intro {
+    padding: 3%;
+    width: 100%;
+    background: url('https://cdn.pixabay.com/photo/2016/11/21/18/14/wall-1846965__340.jpg') no-repeat;
+    background-size: cover;
+    color: white;
+}
+
+#collections {
+    width: 100%;
+    background: url('https://cdn.pixabay.com/photo/2016/11/21/18/14/wall-1846965__340.jpg') no-repeat;
+    background-size: cover;
+    padding-bottom: 2%;
+}
+
+#header {
+    text-align: center;
+    background-color: antiquewhite;
+    color: black;
+    padding: 2%;
+}
+
+a {
+    text-decoration: none;
+}
+
+.d-flex {
+    padding: 2%;
+}
+
+.card {
+    width: 18rem;
+    height: 100%;
+    color: white;
+    background-color: none;
+    border: 2px solid black;
+    padding: 1%
+}

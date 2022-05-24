@@ -1,0 +1,14 @@
+{
+  "projects": {
+    "default": "adventuring-with-the-banks"
+  },
+  "targets": {
+    "adventuring-with-the-banks": {
+      "hosting": {
+        "Front-End": [
+          "adventuring-with-the-banks"
+        ]
+      }
+    }
+  }
+}
