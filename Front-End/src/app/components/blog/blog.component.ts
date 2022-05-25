@@ -1,5 +1,7 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+import { Entry } from 'src/app/models/entry';
+import { BlogService } from 'src/app/services/blog.service';
 
 @Component({
   selector: 'app-blog',
@@ -10,10 +12,14 @@ export class BlogComponent implements OnInit {
   type!: string;
   title!: string;
 
-  constructor(private route: ActivatedRoute) { }
+  constructor(
+    private route: ActivatedRoute,
+    private bs: BlogService
+  ) { }
 
   ngOnInit(): void {
     this.blogType();
+    this.getEntries();
   }
 
   blogType() {
@@ -47,6 +53,10 @@ export class BlogComponent implements OnInit {
         this.title = 'Almost Bare | Beauty';
         break;
     }
+  }
+
+  getEntries() {
+    console.log(this.bs.getEntries(this.type));
   }
 
 }

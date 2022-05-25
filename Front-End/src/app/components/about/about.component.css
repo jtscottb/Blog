@@ -58,7 +58,7 @@ img {
     and (-webkit-min-device-pixel-ratio: 3)
     and (orientation: landscape) {
         #about {
-            padding: 3vw;
+            padding: 3vh;
         }
 
         .card {

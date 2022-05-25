@@ -5,6 +5,7 @@ a {
 a:hover {
     background-color: rgb(59, 57, 57);
     color: rgb(21, 158, 216);
+    cursor: pointer;
 }
 
 .active {

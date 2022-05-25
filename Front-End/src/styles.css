@@ -1,6 +1,6 @@
 /* You can add global styles to this file, and also import other style files */
 
-/* h1 {
+h1 {
     font-size: 3vw;
 }
 
@@ -9,5 +9,5 @@ h5 {
 }
 
 p, a {
-    font-size: 1vw !important;
-} */
+    font-size: 1.2vw !important;
+}
