@@ -44,7 +44,7 @@ a {
 }
 
 .card {
-    width: 25vw;
+    width: 20vw;
     height: 100%;
     color: white;
     background-color: none;
@@ -71,6 +71,10 @@ a {
         #title {
             padding: 5vw;
         }
+
+        .card {
+            width: 50%;
+        }
 }
 
 /* Landscape */
@@ -81,5 +85,9 @@ a {
     and (orientation: landscape) {
         #title {
             padding: 5vh;
+        }
+
+        .card {
+            width: 50%;
         }
 }

@@ -1,31 +1,28 @@
-
 <nav class="navbar navbar-expand bg-dark">
     <div class="container-fluid">
-        <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
-            <ul class="nav nav-tabs">
-                <li class="nav-item" (click)="activeTab('home')">
-                    <a class="nav-link {{home}}" routerLink="/home">Home</a>
-                </li>
-                <li class="nav-item" (click)="activeTab('about')">
-                    <a class="nav-link {{about}}"  routerLink="/about">About</a>
-                </li>
-                <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                        Blogs
-                    </a>
-                    <ul class="dropdown-menu" aria-labelledby="navbarDropdown" (click)="activeTab('blog')">
-                        <li><a class="dropdown-item" routerLink="/journal">Daily Dose | Journal</a></li>
-                        <li><a class="dropdown-item" href="#">Common Cents | Budgeting and Finance</a></li>
-                        <li><a class="dropdown-item" href="#">Hair, There, Everywhere | Hair Care</a></li>
-                        <li><a class="dropdown-item" href="#">Tidy Talk | Cleaning</a></li>
-                        <li><a class="dropdown-item" href="#">Pack Your Bags | Travel</a></li>
-                        <li><a class="dropdown-item" href="#">Classy Threads | Fashion</a></li>
-                        <li><a class="dropdown-item" href="#">Herbs and Lemons | Cooking</a></li>
-                        <li><a class="dropdown-item" href="#">A Beautiful Mess | Home Design</a></li>
-                        <li><a class="dropdown-item" href="#">Almost Bare | Beauty</a></li>
-                    </ul>
-                </li>
-            </ul>
-        </div>
+        <ul class="nav nav-tabs">
+            <li class="nav-item">
+                <a class="nav-link" routerLink="/home" (click)="activeTab('HOME')" [ngClass]="{active: nav == 'HOME'}">Home</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link"  routerLink="/about" (click)="activeTab('about')" [ngClass]="{active: nav == 'about'}">About</a>
+            </li>
+            <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                    Blogs
+                </a>
+                <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                    <li><a class="dropdown-item" (click)="blogType('journal')" [ngClass]="{active: nav == 'journal'}">Daily Dose | Journal</a></li>
+                    <li><a class="dropdown-item" (click)="blogType('finance')" [ngClass]="{active: nav == 'finance'}">Common Cents | Budgeting and Finance</a></li>
+                    <li><a class="dropdown-item" (click)="blogType('hair')" [ngClass]="{active: nav == 'hair'}">Hair, There, Everywhere | Hair Care</a></li>
+                    <li><a class="dropdown-item" (click)="blogType('cleaning')" [ngClass]="{active: nav == 'cleaning'}">Tidy Talk | Cleaning</a></li>
+                    <li><a class="dropdown-item" (click)="blogType('travel')" [ngClass]="{active: nav == 'travel'}">Pack Your Bags | Travel</a></li>
+                    <li><a class="dropdown-item" (click)="blogType('fashion')" [ngClass]="{active: nav == 'fashion'}">Classy Threads | Fashion</a></li>
+                    <li><a class="dropdown-item" (click)="blogType('cooking')" [ngClass]="{active: nav == 'cooking'}">Herbs and Lemons | Cooking</a></li>
+                    <li><a class="dropdown-item" (click)="blogType('home')" [ngClass]="{active: nav == 'home'}">A Beautiful Mess | Home Design</a></li>
+                    <li><a class="dropdown-item" (click)="blogType('beauty')" [ngClass]="{active: nav == 'beauty'}">Almost Bare | Beauty</a></li>
+                </ul>
+            </li>
+        </ul>
     </div>
 </nav>

@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-navbar',
@@ -6,27 +7,24 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./navbar.component.css']
 })
 export class NavbarComponent implements OnInit {
-  home: string = 'active';
-  about: string = '';
+  nav: string = 'HOME';
 
-  constructor() { }
+  constructor(private route: Router) { }
 
   ngOnInit(): void {
   }
+  
+  blogType(type: string) {
+    this.route.navigate(['']).then(
+      () => {
+        this.route.navigate(['/blog/'+type]);
+      }
+    );
+    this.activeTab(type);
+  }
 
   activeTab(tab: string) {
-    switch (tab) {
-      case 'home':
-        this.home = 'active';
-        this.about = '';
-        break;
-      case 'about':
-        this.about = 'active';
-        this.home = '';
-        break;
-      default:
-        this.home = '';
-        this.about = '';
-    }
+    this.nav = tab;
   }
+
 }

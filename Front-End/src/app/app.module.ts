@@ -19,16 +19,16 @@ import { provideStorage,getStorage } from '@angular/fire/storage';
 
 import { HomeComponent } from './components/home/home.component';
 import { AboutComponent } from './components/about/about.component';
-import { JournalComponent } from './components/journal/journal.component';
 import { NavbarComponent } from './components/navbar/navbar.component';
+import { BlogComponent } from './components/blog/blog.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     HomeComponent,
     AboutComponent,
-    JournalComponent,
-    NavbarComponent
+    NavbarComponent,
+    BlogComponent
   ],
   imports: [
     BrowserModule,
