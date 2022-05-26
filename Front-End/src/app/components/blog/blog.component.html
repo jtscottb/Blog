@@ -4,3 +4,9 @@
     <input type="text" name="content" placeholder="Content" [(ngModel)]="content">
     <button (click)="addDoc()">Submit</button>
 </div>
+
+<div *ngFor="let doc of DOCS">
+    <h5>{{doc.date.toDate() | date : 'short'}}</h5>
+    <h5>{{doc.description}}</h5>
+    <p>{{doc.content}}</p>
+</div>

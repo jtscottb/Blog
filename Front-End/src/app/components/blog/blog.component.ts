@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
-import { Entry } from 'src/app/models/entry';
+import { ActivatedRoute, Router } from '@angular/router';
+import { Timestamp } from 'firebase/firestore';
+import { Post } from 'src/app/models/post';
 import { BlogService } from 'src/app/services/blog.service';
 
 @Component({
@@ -11,17 +12,19 @@ import { BlogService } from 'src/app/services/blog.service';
 export class BlogComponent implements OnInit {
   type!: string;
   title!: string;
+  DOCS!: Post[];
   description!: string;
   content!: string;
 
   constructor(
+    private r: Router,
     private route: ActivatedRoute,
     private bs: BlogService
   ) { }
 
   ngOnInit(): void {
     this.blogType();
-    this.getEntries();
+    this.getPosts();
   }
 
   blogType() {
@@ -57,18 +60,21 @@ export class BlogComponent implements OnInit {
     }
   }
 
-  getEntries() {
-    console.log(this.bs.getEntries(this.type));
+  getPosts() {
+    this.DOCS = this.bs.getPosts(this.type);
   }
 
   addDoc() {
-    var doc: Entry = {
-      date: new Date(),
+    var date: Date = new Date();
+    var doc: Post = {
+      date: new Timestamp(date.getTime()/1000, date.getMilliseconds()),
       description: this.description,
       content: this.content
     }
-
-    this.bs.createEntry(this.type, doc);
+    this.bs.createPost(this.type, doc);
+    this.r.navigate(['']).then( () => {
+      this.r.navigate(['/blog/'+this.type]);
+    });
   }
 
 }

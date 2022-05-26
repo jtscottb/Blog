@@ -2,9 +2,9 @@ import { Injectable } from '@angular/core';
 import { FirebaseApp } from '@angular/fire/app';
 import { Firestore } from '@angular/fire/firestore';
 import { initializeApp } from 'firebase/app';
-import { getFirestore, collection, addDoc, doc, getDoc, getDocs, setDoc, updateDoc, deleteDoc, QueryDocumentSnapshot, QuerySnapshot } from 'firebase/firestore';
+import { getFirestore, collection, addDoc, doc, getDoc, getDocs, setDoc, updateDoc, deleteDoc, QueryDocumentSnapshot, QuerySnapshot, DocumentSnapshot, Timestamp } from 'firebase/firestore';
 import { environment } from 'src/environments/environment';
-import { Entry } from '../models/entry';
+import { Post } from '../models/post';
 
 @Injectable({
   providedIn: 'root'
@@ -15,36 +15,48 @@ export class BlogService {
 
   constructor() { }
 
-  getEntries(blog: string) {
-    const DOCS: Entry[] = [];
+  getPosts(blog: string): Post[] {
+    const DOCS: Post[] = [];
     getDocs(collection(this.db, blog)).then( (documents: QuerySnapshot) => {
       documents.forEach( (doc: QueryDocumentSnapshot) => {
-        var post: Entry = {
+        var post: Post = {
           date: doc.get('date'),
           description: doc.get('description'),
           content: doc.get('content')
         }
         DOCS.push(post);
-        console.log(doc.data());
       });
     });
-    console.log(DOCS);
+    
+    return DOCS;
   }
 
-  getEntry(blog: string, entry: Entry) {
-    return getDoc(doc(this.db, '/'+blog+'/'+entry.docID));
+  getPost(blog: string, Post: Post): Post {
+    var post: Post = {
+      date: new Timestamp(new Date().getTime()/1000, new Date().getMilliseconds()),
+      description: '',
+      content: ''
+    };
+
+    getDoc(doc(this.db, '/'+blog+'/'+Post.docID)).then( (doc: DocumentSnapshot) => {
+      post.date = doc.get('date');
+      post.description = doc.get('description');
+      post.content = doc.get('content');
+    });
+
+    return post;
   }
 
-  createEntry(blog: string, entry: Entry) {
-    return addDoc(collection(this.db, blog), entry);
+  createPost(blog: string, Post: Post) {
+    return addDoc(collection(this.db, blog), Post);
   }
 
-  updateEntry(blog: string, entry: Entry){
-    return setDoc(doc(this.db, '/'+blog+'/'+entry.docID), entry);
+  updatePost(blog: string, Post: Post) {
+    return setDoc(doc(this.db, '/'+blog+'/'+Post.docID), Post);
   }
 
-  deleteEntry(blog: string, entry: Entry){
-    return deleteDoc(doc(this.db, '/'+blog+'/'+entry.docID));
+  deletePost(blog: string, Post: Post) {
+    return deleteDoc(doc(this.db, '/'+blog+'/'+Post.docID));
   } 
   
 }
