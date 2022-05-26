@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { FirebaseApp } from '@angular/fire/app';
 import { Firestore } from '@angular/fire/firestore';
 import { initializeApp } from 'firebase/app';
-import { getFirestore, collection, addDoc, doc, getDoc, getDocs, setDoc, updateDoc, deleteDoc, FirestoreDataConverter } from 'firebase/firestore';
+import { getFirestore, collection, addDoc, doc, getDoc, getDocs, setDoc, updateDoc, deleteDoc, QueryDocumentSnapshot, QuerySnapshot } from 'firebase/firestore';
 import { environment } from 'src/environments/environment';
 import { Entry } from '../models/entry';
 
@@ -16,7 +16,19 @@ export class BlogService {
   constructor() { }
 
   getEntries(blog: string) {
-    return getDocs(collection(this.db, blog));
+    const DOCS: Entry[] = [];
+    getDocs(collection(this.db, blog)).then( (documents: QuerySnapshot) => {
+      documents.forEach( (doc: QueryDocumentSnapshot) => {
+        var post: Entry = {
+          date: doc.get('date'),
+          description: doc.get('description'),
+          content: doc.get('content')
+        }
+        DOCS.push(post);
+        console.log(doc.data());
+      });
+    });
+    console.log(DOCS);
   }
 
   getEntry(blog: string, entry: Entry) {

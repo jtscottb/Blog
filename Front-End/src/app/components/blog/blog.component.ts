@@ -11,6 +11,8 @@ import { BlogService } from 'src/app/services/blog.service';
 export class BlogComponent implements OnInit {
   type!: string;
   title!: string;
+  description!: string;
+  content!: string;
 
   constructor(
     private route: ActivatedRoute,
@@ -57,6 +59,16 @@ export class BlogComponent implements OnInit {
 
   getEntries() {
     console.log(this.bs.getEntries(this.type));
+  }
+
+  addDoc() {
+    var doc: Entry = {
+      date: new Date(),
+      description: this.description,
+      content: this.content
+    }
+
+    this.bs.createEntry(this.type, doc);
   }
 
 }

@@ -1,4 +1,6 @@
 <h1>{{ title }}</h1>
 <div>
-    <p></p>
+    <input type="text" name="description" placeholder="Description" [(ngModel)]="description">
+    <input type="text" name="content" placeholder="Content" [(ngModel)]="content">
+    <button (click)="addDoc()">Submit</button>
 </div>
