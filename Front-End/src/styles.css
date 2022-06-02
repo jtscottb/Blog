@@ -1,13 +1,27 @@
 /* You can add global styles to this file, and also import other style files */
+* {
+    font-family: Georgia, oblique;
+}
 
 h1 {
     font-size: 3vw;
+    font-family: fantasy;
 }
 
 h5 {
     font-size: 1.4vw;
 }
 
-p, a {
+/* p, a {
     font-size: 1.2vw !important;
+} */
+
+p {
+    font-size: 1.4vw !important;
+    font-family: Brush Script MT, cursive;
+}
+
+a {
+    font-size: 1.2vw !important;
+    text-decoration: none;
 }

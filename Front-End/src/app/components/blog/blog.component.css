@@ -1,0 +1,9 @@
+
+.card {
+    margin: 3%;
+}
+
+.card:hover {
+    transform: scale(105%);
+    transition-duration: 1s;
+}

@@ -60,8 +60,11 @@ export class BlogComponent implements OnInit {
     }
   }
 
-  getPosts() {
-    this.DOCS = this.bs.getPosts(this.type);
+  async getPosts() {
+    /* this.bs.getPosts(this.type).subscribe( (docs: Post[]) => {
+      this.DOCS = docs;
+    }); */
+    this.DOCS = await this.bs.getPosts(this.type);
   }
 
   addDoc() {

@@ -1,5 +1,5 @@
 
-<div class="container-fluid">
+<div id="titleImage" class="container-fluid">
     <div id="title">
         <h1>Adventuring with the Banks</h1>
     </div>
@@ -9,11 +9,12 @@
         Hi, I'm Courtney. here I will be sharing tips and tricks that help my cute husband and I through this adventure we call life.
     </p>
 </div>
-<div id="collections">
-    <p id="header">
-        These are a few collections: Adventuring with the Banks
-    </p>
 
+<div id="header" class="d-flex flex-wrap justify-content-center">
+    <p>These are a few collections: Adventuring with the Banks</p>
+</div>
+<p>{{post.date.toDate() | date : 'short'}} {{post.description}} {{post.content}}</p>
+<div id="collections">
     <div class="d-flex justify-content-evenly flex-wrap">
         <a routerLink="/blog/journal">
             <div class="card bg-transparent">

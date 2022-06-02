@@ -6,7 +6,13 @@
 </div>
 
 <div *ngFor="let doc of DOCS">
-    <h5>{{doc.date.toDate() | date : 'short'}}</h5>
-    <h5>{{doc.description}}</h5>
-    <p>{{doc.content}}</p>
+    <a routerLink="/blog/{{type}}/{{doc.docID}}">
+        <div class="card bg-transparent">
+            <!-- <img src="assets/photos/Budget.png" class="card-img-top" alt="..."> -->
+            <div class="card-body">
+                <h5 class="card-title">{{doc.date.toDate() | date : 'longDate'}}</h5>
+                <p class="card-text">{{doc.description}}</p>
+            </div>
+        </div>
+    </a>
 </div>

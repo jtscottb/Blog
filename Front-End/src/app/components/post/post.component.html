@@ -1,0 +1,10 @@
+<button (click)="back()">Back</button>
+
+<div id="title">
+    <h4>{{post.date.toDate() | date : 'short'}}&nbsp;{{post.description}}</h4>
+    <hr>
+</div>
+
+<div id="content" class="container-fluid">
+    <p>{{post.content}}</p>
+</div>
