@@ -31,7 +31,6 @@ export class BlogService {
         DOCS.push(post);
       });
     });
-    // this.http.get<Post[]>(this.url + blog);
     return DOCS;
   }
 
@@ -64,16 +63,16 @@ export class BlogService {
     return deleteDoc(doc(this.db, '/'+blog+'/'+Post.docID));
   }
 
-  randomPost(): Post {
+  async randomPost(): Promise<Post> {
     const type: string = this.ex[Math.floor(Math.random()*this.ex.length)];
     const DOCS: Post[] = [];
     var randPost: Post = {
       docID: 'id',
-      date: new Timestamp(new Date().getTime()/1000, new Date().getMilliseconds()),
+      date: new Timestamp(new Date('May 7, 2022 10:45:00').getTime()/1000, new Date().getMilliseconds()),
       description: 'description',
       content: 'content'
     };
-    getDocs(collection(this.db, type)).then( (documents: QuerySnapshot) => {
+    await getDocs(collection(this.db, type)).then( (documents: QuerySnapshot) => {
       documents.forEach( (doc: QueryDocumentSnapshot) => {
         var post: Post = {
           docID: doc.id,
@@ -84,13 +83,7 @@ export class BlogService {
         DOCS.push(post);
       });
       randPost = DOCS[Math.floor(Math.random()*DOCS.length)];
-      console.log(randPost);
-      return randPost;
     });
-    console.log(randPost);
-
-    var i = query(collectionGroup(this.db, type), orderBy("date", "desc"), limit(1));
-    console.log(i);
     return randPost;
   }
   
