@@ -15,11 +15,9 @@ export class NavbarComponent implements OnInit {
   }
   
   blogType(type: string) {
-    this.route.navigate(['']).then(
-      () => {
+    this.route.navigate(['']).then( () => {
         this.route.navigate(['/blog/'+type]);
-      }
-    );
+    });
     this.activeTab(type);
   }
 

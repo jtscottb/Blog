@@ -61,9 +61,6 @@ export class BlogComponent implements OnInit {
   }
 
   async getPosts() {
-    /* this.bs.getPosts(this.type).subscribe( (docs: Post[]) => {
-      this.DOCS = docs;
-    }); */
     this.DOCS = await this.bs.getPosts(this.type);
   }
 

@@ -18,9 +18,9 @@ export class BlogService {
 
   constructor() { }
 
-  getPosts(blog: string): Post[] {
+  async getPosts(blog: string): Promise<Post[]> {
     const DOCS: Post[] = [];
-    getDocs(collection(this.db, blog)).then( (documents: QuerySnapshot) => {
+    await getDocs(collection(this.db, blog)).then( (documents: QuerySnapshot) => {
       documents.forEach( (doc: QueryDocumentSnapshot) => {
         var post: Post = {
           docID: doc.id,
@@ -34,7 +34,7 @@ export class BlogService {
     return DOCS;
   }
 
-  getPost(blog: string, docID: string) {
+  getPost(blog: string, docID: string): Post {
     var post: Post = {
       docID: '',
       date: new Timestamp(new Date().getTime()/1000, new Date().getMilliseconds()),
@@ -64,15 +64,25 @@ export class BlogService {
   }
 
   async randomPost(): Promise<Post> {
-    const type: string = this.ex[Math.floor(Math.random()*this.ex.length)];
-    const DOCS: Post[] = [];
-    var randPost: Post = {
+    const type: string = this.types[Math.floor(Math.random()*this.types.length)];
+    const DOCS: Post[] = await this.getPosts(type);
+    let randPost: Post;
+    
+    /* var randPost: Post = {
       docID: 'id',
       date: new Timestamp(new Date('May 7, 2022 10:45:00').getTime()/1000, new Date().getMilliseconds()),
       description: 'description',
       content: 'content'
-    };
-    await getDocs(collection(this.db, type)).then( (documents: QuerySnapshot) => {
+    }; */
+
+    if(DOCS.length > 0) {
+      randPost = DOCS[Math.floor(Math.random()*DOCS.length)];
+    } else {
+      randPost = await this.randomPost();
+    }
+    
+
+    /* await getDocs(collection(this.db, type)).then( (documents: QuerySnapshot) => {
       documents.forEach( (doc: QueryDocumentSnapshot) => {
         var post: Post = {
           docID: doc.id,
@@ -83,8 +93,27 @@ export class BlogService {
         DOCS.push(post);
       });
       randPost = DOCS[Math.floor(Math.random()*DOCS.length)];
-    });
+    }); */
+
     return randPost;
+  }
+
+  async latestPost(): Promise<Post> {
+    var latestPost: Post = {
+      docID: 'id',
+      date: new Timestamp(new Date('May 7, 2022 10:45:00').getTime()/1000, new Date().getMilliseconds()),
+      description: 'description',
+      content: 'content'
+    };
+    for(var t of this.types) {
+      var DOCS: Post[] = await this.getPosts(t);
+      if(DOCS.length > 0) {
+        for(var d of DOCS) {
+          latestPost = latestPost.date < d.date ? d : latestPost;
+        }
+      }
+    }
+    return latestPost;
   }
   
 }
