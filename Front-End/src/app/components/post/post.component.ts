@@ -11,6 +11,7 @@ import { BlogService } from 'src/app/services/blog.service';
 export class PostComponent implements OnInit {
   type: string = 'Type';
   post!: Post;
+  types: string[] = ['journal', 'finance', 'hair', 'cleaning', 'travel', 'fashion', 'cooking', 'home', 'beauty'];
 
   constructor(
     private route: Router,

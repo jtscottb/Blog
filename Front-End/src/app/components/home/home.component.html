@@ -50,7 +50,7 @@
                     <h4 class="card-title" *ngSwitchCase="types[7]">A Beautiful Mess | {{post.group | titlecase}}</h4>
                     <h4 class="card-title" *ngSwitchCase="types[8]">Almost Bare | {{post.group | titlecase}}</h4>
 
-                    <h5 class="card-subtitle text-muted">{{post.date.toDate() | date : 'shortDate'}}</h5>
+                    <h5 class="card-subtitle">{{post.date.toDate() | date : 'shortDate'}}</h5>
                     <p class="card-text">{{post.description}}</p>
                 </div>
             </div>

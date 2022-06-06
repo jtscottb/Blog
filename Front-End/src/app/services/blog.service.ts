@@ -14,7 +14,6 @@ export class BlogService {
   db: Firestore = getFirestore(this.app);
   url: string = 'https://firestore.googleapis.com/v1/projects/adventuring-with-the-banks/databases/(default)/documents/';
   types: string[] = ['journal', 'finance', 'hair', 'cleaning', 'travel', 'fashion', 'cooking', 'home', 'beauty'];
-  ex: string[] = ['journal', 'finance']
 
   constructor() { }
 
@@ -70,12 +69,6 @@ export class BlogService {
     const type: string = this.types[Math.floor(Math.random()*this.types.length)];
     const DOCS: Post[] = await this.getPosts(blog);
     let randPost: Post = DOCS[Math.floor(Math.random()*DOCS.length)];
-
-    /* if(DOCS.length > 0) {
-      randPost = DOCS[Math.floor(Math.random()*DOCS.length)];
-    } else {
-      randPost = await this.randomPost(blog);
-    } */
 
     return randPost;
   }

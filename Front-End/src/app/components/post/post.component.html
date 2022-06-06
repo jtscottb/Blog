@@ -1,10 +1,32 @@
-<button (click)="back()">Back</button>
 
-<div id="title">
-    <h4>{{post.date.toDate() | date : 'short'}}&nbsp;{{post.description}}</h4>
-    <hr>
-</div>
 
-<div id="content" class="container-fluid">
-    <p>{{post.content}}</p>
+<div id="page-background">
+    <div id="page">
+        <div class="d-flex">
+            <div class="align-self-center">
+                <button (click)="back()">Back To {{type | titlecase}}</button>
+            </div>
+            
+            <div id="title" [ngSwitch]="type">
+                <h1 *ngSwitchCase="types[0]">Daily Dose | {{type | titlecase}}</h1>
+                <h1 *ngSwitchCase="types[1]">Common Cents | {{type | titlecase}}</h1>
+                <h1 *ngSwitchCase="types[2]">Hair, There, Everywhere | {{type | titlecase}}</h1>
+                <h1 *ngSwitchCase="types[3]">Tidy Talk | {{type | titlecase}}</h1>
+                <h1 *ngSwitchCase="types[4]">Pack Your Bags | {{type | titlecase}}</h1>
+                <h1 *ngSwitchCase="types[5]">Classy Threads | {{type | titlecase}}</h1>
+                <h1 *ngSwitchCase="types[6]">Herbs and Lemons | {{type | titlecase}}</h1>
+                <h1 *ngSwitchCase="types[7]">A Beautiful Mess | {{type | titlecase}}</h1>
+                <h1 *ngSwitchCase="types[8]">Almost Bare | {{type | titlecase}}</h1>
+
+                <h4>Created on - {{post.date.toDate() | date : 'short'}}</h4>
+                <h4>{{post.description}}</h4>
+            </div>
+        </div>
+
+        <hr>
+
+        <div id="content">
+            <p>{{post.content}}</p>
+        </div>
+    </div>
 </div>
