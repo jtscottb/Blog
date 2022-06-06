@@ -1,3 +1,8 @@
+h3 {
+    padding: 2% 0% 0% 2%;
+    color: rgb(150, 151, 151);
+}
+
 #titleImage {
     padding: 3%;
     width: 100%;
@@ -40,12 +45,13 @@
 }
 
 .card {
-    width: 17vw;
+    width: 25%;
     height: 100%;
     color: white;
     background-color: none;
     border: 2px solid black;
-    padding: 1%
+    padding: 1%;
+    margin: 2% 0% 0% 2%;
 }
 
 /* ----------- iPhone X ----------- */

@@ -68,6 +68,7 @@ export class BlogComponent implements OnInit {
     var date: Date = new Date();
     var doc: Post = {
       date: new Timestamp(date.getTime()/1000, date.getMilliseconds()),
+      group: this.type,
       description: this.description,
       content: this.content
     }

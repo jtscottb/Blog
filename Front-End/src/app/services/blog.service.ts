@@ -25,6 +25,7 @@ export class BlogService {
         var post: Post = {
           docID: doc.id,
           date: doc.get('date'),
+          group: doc.get('group'),
           description: doc.get('description'),
           content: doc.get('content')
         }
@@ -38,12 +39,14 @@ export class BlogService {
     var post: Post = {
       docID: '',
       date: new Timestamp(new Date().getTime()/1000, new Date().getMilliseconds()),
+      group: 'group',
       description: '',
       content: ''
     };
     getDoc(doc(this.db, '/'+blog+'/'+docID)).then( (doc: DocumentSnapshot) => {
       post.docID = doc.id;
       post.date = doc.get('date');
+      post.group = doc.get('group');
       post.description = doc.get('description');
       post.content = doc.get('content');
     });
@@ -63,37 +66,16 @@ export class BlogService {
     return deleteDoc(doc(this.db, '/'+blog+'/'+Post.docID));
   }
 
-  async randomPost(): Promise<Post> {
+  async randomPost(blog: string): Promise<Post> {
     const type: string = this.types[Math.floor(Math.random()*this.types.length)];
-    const DOCS: Post[] = await this.getPosts(type);
-    let randPost: Post;
-    
-    /* var randPost: Post = {
-      docID: 'id',
-      date: new Timestamp(new Date('May 7, 2022 10:45:00').getTime()/1000, new Date().getMilliseconds()),
-      description: 'description',
-      content: 'content'
-    }; */
+    const DOCS: Post[] = await this.getPosts(blog);
+    let randPost: Post = DOCS[Math.floor(Math.random()*DOCS.length)];
 
-    if(DOCS.length > 0) {
+    /* if(DOCS.length > 0) {
       randPost = DOCS[Math.floor(Math.random()*DOCS.length)];
     } else {
-      randPost = await this.randomPost();
-    }
-    
-
-    /* await getDocs(collection(this.db, type)).then( (documents: QuerySnapshot) => {
-      documents.forEach( (doc: QueryDocumentSnapshot) => {
-        var post: Post = {
-          docID: doc.id,
-          date: doc.get('date'),
-          description: doc.get('description'),
-          content: doc.get('content')
-        }
-        DOCS.push(post);
-      });
-      randPost = DOCS[Math.floor(Math.random()*DOCS.length)];
-    }); */
+      randPost = await this.randomPost(blog);
+    } */
 
     return randPost;
   }
@@ -102,6 +84,7 @@ export class BlogService {
     var latestPost: Post = {
       docID: 'id',
       date: new Timestamp(new Date('May 7, 2022 10:45:00').getTime()/1000, new Date().getMilliseconds()),
+      group: 'group',
       description: 'description',
       content: 'content'
     };

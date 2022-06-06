@@ -8,6 +8,7 @@ import { BlogService } from 'src/app/services/blog.service';
   styleUrls: ['./home.component.css']
 })
 export class HomeComponent implements OnInit {
+  posts: Post[] = [];
   randPost!: Post;
   latestPost!: Post;
   types: string[] = ['journal', 'finance', 'hair', 'cleaning', 'travel', 'fashion', 'cooking', 'home', 'beauty'];
@@ -15,12 +16,19 @@ export class HomeComponent implements OnInit {
   constructor(private bs: BlogService) { }
 
   ngOnInit(): void {
-    this.bs.randomPost().then( (p: Post) => {
-      this.randPost = p;
-    });
     this.bs.latestPost().then( (p: Post) => {
       this.latestPost = p;
     });
+    this.getRandomPosts();
+  }
+
+  async getRandomPosts() {
+    for(var t of this.types) {
+      var p: Post = await this.bs.randomPost(t);
+      if(p != undefined) {
+        this.posts.push(p);
+      }
+    }
   }
 
 }
