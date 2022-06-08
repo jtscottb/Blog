@@ -41,13 +41,13 @@
             <div class="card bg-transparent">
                 <div class="card-body" [ngSwitch]="post.group">
                     <h4 class="card-title" *ngSwitchCase="types[0]">Daily Dose | {{post.group | titlecase}}</h4>
-                    <h4 class="card-title" *ngSwitchCase="types[1]">Common Cents | {{post.group | titlecase}}</h4>
-                    <h4 class="card-title" *ngSwitchCase="types[2]">Hair, There, Everywhere | {{post.group | titlecase}}</h4>
+                    <h4 class="card-title" *ngSwitchCase="types[1]">Common Cents | Budgeting and {{post.group | titlecase}}</h4>
+                    <h4 class="card-title" *ngSwitchCase="types[2]">Hair, There, Everywhere | {{post.group | titlecase}} Care</h4>
                     <h4 class="card-title" *ngSwitchCase="types[3]">Tidy Talk | {{post.group | titlecase}}</h4>
                     <h4 class="card-title" *ngSwitchCase="types[4]">Pack Your Bags | {{post.group | titlecase}}</h4>
                     <h4 class="card-title" *ngSwitchCase="types[5]">Classy Threads | {{post.group | titlecase}}</h4>
                     <h4 class="card-title" *ngSwitchCase="types[6]">Herbs and Lemons | {{post.group | titlecase}}</h4>
-                    <h4 class="card-title" *ngSwitchCase="types[7]">A Beautiful Mess | {{post.group | titlecase}}</h4>
+                    <h4 class="card-title" *ngSwitchCase="types[7]">A Beautiful Mess | {{post.group | titlecase}} Design</h4>
                     <h4 class="card-title" *ngSwitchCase="types[8]">Almost Bare | {{post.group | titlecase}}</h4>
 
                     <h5 class="card-subtitle">{{post.date.toDate() | date : 'shortDate'}}</h5>

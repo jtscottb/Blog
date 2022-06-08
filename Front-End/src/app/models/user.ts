@@ -1,4 +1,4 @@
-export interface Subscription {
+export interface User {
     id?: string,
     email: string,
     fname: string,
