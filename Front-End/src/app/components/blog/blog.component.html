@@ -1,18 +1,25 @@
-<h1>{{ title }}</h1>
+<div id="title">
+    <h1>{{ title }}</h1>
+</div>
+
 <div>
     <input type="text" name="description" placeholder="Description" [(ngModel)]="description">
     <input type="text" name="content" placeholder="Content" [(ngModel)]="content">
     <button (click)="addDoc()">Submit</button>
 </div>
 
-<div *ngFor="let doc of DOCS">
-    <a routerLink="/blog/{{type}}/{{doc.docID}}">
-        <div class="card bg-transparent">
-            <!-- <img src="assets/photos/Budget.png" class="card-img-top" alt="..."> -->
-            <div class="card-body">
-                <h5 class="card-title">{{doc.date.toDate() | date : 'longDate'}}</h5>
-                <p class="card-text">{{doc.description}}</p>
-            </div>
+<div id="outerBox">
+    <div id="box">
+        <div class="container" *ngFor="let doc of DOCS">
+            <a routerLink="/blog/{{type}}/{{doc.docID}}">
+                <div class="card bg-transparent">
+                    <!-- <img src="assets/photos/Budget.png" class="card-img-top" alt="..."> -->
+                    <div class="card-body">
+                        <h5 class="card-title">{{doc.date.toDate() | date : 'longDate'}}</h5>
+                        <p class="card-text">{{doc.description}}</p>
+                    </div>
+                </div>
+            </a>
         </div>
-    </a>
+    </div>
 </div>

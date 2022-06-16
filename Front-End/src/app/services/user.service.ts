@@ -9,22 +9,31 @@ import { User } from '../models/user';
 @Injectable({
   providedIn: 'root'
 })
-export class SubscriptionService {
+export class UserService {
   app: FirebaseApp = initializeApp(environment.firebase);
   db: Firestore = getFirestore(this.app);
+  user: User =  {
+    id: 'ID',
+    email: 'email@email.com',
+    fname: 'FirstName',
+    lname: 'LastName',
+    uname: 'Username',
+    password: 'Password',
+    subscribe: false
+  };
 
   constructor() { }
 
-  subscribe(entry: User) {
-    return addDoc(collection(this.db, 'subscriptions'), entry);
+  addUser(entry: User) {
+    return addDoc(collection(this.db, 'users'), entry);
   }
 
-  updateSubscription(entry: User) {
-    return setDoc(doc(this.db, '/subscriptions/'+entry.id), entry);
+  updateUser(entry: User) {
+    return setDoc(doc(this.db, '/users/'+entry.id), entry);
   }
 
-  deleteSubscription(entry: User) {
-    return deleteDoc(doc(this.db, '/subscriptions/'+entry.id));
+  deleteUser(entry: User) {
+    return deleteDoc(doc(this.db, '/users/'+entry.id));
   }
   
 }

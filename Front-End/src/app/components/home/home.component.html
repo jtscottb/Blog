@@ -9,30 +9,32 @@
     </p>
 </div>
 
-<div id="header" class="d-flex flex-wrap justify-content-center">
+<div id="header">
     <p>These are a few collections: Adventuring with the Banks</p>
 </div>
 
 <div id="collections">
     <h3>Most recent addition:</h3>
-    <a routerLink="/blog/{{latestPost.group}}/{{latestPost.docID}}">
-        <div class="card bg-transparent">
-            <div class="card-body" [ngSwitch]="latestPost.group">
-                <h4 class="card-title" *ngSwitchCase="types[0]">Daily Dose | {{latestPost.group | titlecase}}</h4>
-                <h4 class="card-title" *ngSwitchCase="types[1]">Common Cents | {{latestPost.group | titlecase}}</h4>
-                <h4 class="card-title" *ngSwitchCase="types[2]">Hair, There, Everywhere | {{latestPost.group | titlecase}}</h4>
-                <h4 class="card-title" *ngSwitchCase="types[3]">Tidy Talk | {{latestPost.group | titlecase}}</h4>
-                <h4 class="card-title" *ngSwitchCase="types[4]">Pack Your Bags | {{latestPost.group | titlecase}}</h4>
-                <h4 class="card-title" *ngSwitchCase="types[5]">Classy Threads | {{latestPost.group | titlecase}}</h4>
-                <h4 class="card-title" *ngSwitchCase="types[6]">Herbs and Lemons | {{latestPost.group | titlecase}}</h4>
-                <h4 class="card-title" *ngSwitchCase="types[7]">A Beautiful Mess | {{latestPost.group | titlecase}}</h4>
-                <h4 class="card-title" *ngSwitchCase="types[8]">Almost Bare | {{latestPost.group | titlecase}}</h4>
+    <div class="collections">
+        <a routerLink="/blog/{{latestPost.group}}/{{latestPost.docID}}">
+            <div class="card bg-transparent">
+                <div class="card-body" [ngSwitch]="latestPost.group">
+                    <h4 class="card-title" *ngSwitchCase="types[0]">Daily Dose | {{latestPost.group | titlecase}}</h4>
+                    <h4 class="card-title" *ngSwitchCase="types[1]">Common Cents | {{latestPost.group | titlecase}}</h4>
+                    <h4 class="card-title" *ngSwitchCase="types[2]">Hair, There, Everywhere | {{latestPost.group | titlecase}}</h4>
+                    <h4 class="card-title" *ngSwitchCase="types[3]">Tidy Talk | {{latestPost.group | titlecase}}</h4>
+                    <h4 class="card-title" *ngSwitchCase="types[4]">Pack Your Bags | {{latestPost.group | titlecase}}</h4>
+                    <h4 class="card-title" *ngSwitchCase="types[5]">Classy Threads | {{latestPost.group | titlecase}}</h4>
+                    <h4 class="card-title" *ngSwitchCase="types[6]">Herbs and Lemons | {{latestPost.group | titlecase}}</h4>
+                    <h4 class="card-title" *ngSwitchCase="types[7]">A Beautiful Mess | {{latestPost.group | titlecase}}</h4>
+                    <h4 class="card-title" *ngSwitchCase="types[8]">Almost Bare | {{latestPost.group | titlecase}}</h4>
 
-                <h5 class="card-title">{{latestPost.date.toDate() | date : 'shortDate'}}</h5>
-                <p class="card-text">{{latestPost.description}}</p>
+                    <h5 class="card-title">{{latestPost.date.toDate() | date : 'shortDate'}}</h5>
+                    <p class="card-text">{{latestPost.description}}</p>
+                </div>
             </div>
-        </div>
-    </a>
+        </a>
+    </div>
 
     <h3>Collections:</h3>
     <div class="collections" *ngFor="let post of posts">
@@ -56,93 +58,3 @@
         </a>
     </div>
 </div>
-
-<!-- <div id="collections">
-    <div class="d-flex justify-content-evenly flex-wrap">
-        <a routerLink="/blog/journal">
-            <div class="card bg-transparent">
-                <img src="assets/photos/Journal.png" class="card-img-top" alt="...">
-                <div class="card-body">
-                    <h5 class="card-title">Daily Dose | Journal</h5>
-                    <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                </div>
-            </div>
-        </a>
-        <a routerLink="/blog/finance">
-            <div class="card bg-transparent">
-                <img src="assets/photos/Budget.png" class="card-img-top" alt="...">
-                <div class="card-body">
-                    <h5 class="card-title">Common Cents | Budgeting and Finance</h5>
-                    <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                </div>
-            </div>
-        </a>
-        <a routerLink="/blog/hair">
-            <div class="card bg-transparent">
-                <img src="assets/photos/Hair.png" class="card-img-top" alt="...">
-                <div class="card-body">
-                    <h5 class="card-title">Hair, There, Everywhere | Hair Care</h5>
-                    <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                </div>
-            </div>
-        </a>
-    </div>
-    <div class="d-flex justify-content-evenly flex-wrap">
-        <a routerLink="/blog/cleaning">
-            <div class="card bg-transparent">
-                <img src="assets/photos/Cleaning.png" class="card-img-top" alt="...">
-                <div class="card-body">
-                    <h5 class="card-title">Tidy Talk | Cleaning</h5>
-                    <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                </div>
-            </div>
-        </a>
-        <a routerLink="/blog/travel">
-            <div class="card bg-transparent">
-                <img src="assets/photos/Travel.png" class="card-img-top" alt="...">
-                <div class="card-body">
-                    <h5 class="card-title">Pack Your Bags | Travel</h5>
-                    <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                </div>
-            </div>
-        </a>
-        <a routerLink="/blog/fashion">
-            <div class="card bg-transparent">
-                <img src="assets/photos/Fashion.png" class="card-img-top" alt="...">
-                <div class="card-body">
-                    <h5 class="card-title">Classy Threads | Fashion</h5>
-                    <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                </div>
-            </div>
-        </a>
-    </div>
-    <div class="d-flex justify-content-evenly flex-wrap">
-        <a routerLink="/blog/cooking">
-            <div class="card bg-transparent">
-                <img src="assets/photos/Cooking.png" class="card-img-top" alt="...">
-                <div class="card-body">
-                    <h5 class="card-title">Herbs and Lemons | Cooking</h5>
-                    <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                </div>
-            </div>
-        </a>
-        <a routerLink="/blog/home">
-            <div class="card bg-transparent">
-                <img src="assets/photos/Home.png" class="card-img-top" alt="...">
-                <div class="card-body">
-                    <h5 class="card-title">A Beautiful Mess | Home Design</h5>
-                    <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                </div>
-            </div>
-        </a>
-        <a routerLink="/blog/beauty">
-            <div class="card bg-transparent">
-                <img src="assets/photos/Makeup.png" class="card-img-top" alt="...">
-                <div class="card-body">
-                    <h5 class="card-title">Almost Bare | Beauty</h5>
-                    <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                </div>
-            </div>
-        </a>
-    </div>
-</div> -->
