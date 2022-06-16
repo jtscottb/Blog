@@ -6,10 +6,11 @@
 #outerBox {
     margin: 1.5% 1.5%;
     padding: 0.5%;
-    border: 2px solid black;
+    border: 2px solid rgb(0, 0, 0);
     border-radius: 10px;
     width: 47%;
     height: 60vh;
+    background-color: black;
 }
 
 #box {
@@ -26,6 +27,7 @@
 
 .card {
     width: 100%;
+    background-color: white !important;
 }
 
 .card:hover {

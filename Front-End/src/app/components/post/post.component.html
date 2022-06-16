@@ -2,7 +2,7 @@
     <div id="page">
         <div class="d-flex">
             <div class="align-self-center">
-                <button (click)="back()">Back to {{post.group | titlecase}}</button>
+                <button class="btn btn-primary" (click)="back()">Back to {{post.group | titlecase}}</button>
             </div>
             
             <div id="title" [ngSwitch]="type">
