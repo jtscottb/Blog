@@ -8,19 +8,16 @@
                 <a class="nav-link"  routerLink="/about" (click)="activeTab('about')" [ngClass]="{active: nav == 'about'}">About</a>
             </li>
             <li class="nav-item dropdown">
-                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false" 
+                [ngClass]="{active: nav == 'journal' || nav == 'finance' || nav == 'hair' || nav == 'cleaning' || nav == 'travel' || nav == 'fashion' || nav == 'cooking' || nav == 'home' || nav == 'beauty'}">
                     Blogs
                 </a>
                 <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                    <li><a class="dropdown-item" (click)="blogType('journal')" [ngClass]="{active: nav == 'journal'}">Daily Dose | Journal</a></li>
-                    <li><a class="dropdown-item" (click)="blogType('finance')" [ngClass]="{active: nav == 'finance'}">Common Cents | Budgeting and Finance</a></li>
-                    <li><a class="dropdown-item" (click)="blogType('hair')" [ngClass]="{active: nav == 'hair'}">Hair, There, Everywhere | Hair Care</a></li>
-                    <li><a class="dropdown-item" (click)="blogType('cleaning')" [ngClass]="{active: nav == 'cleaning'}">Tidy Talk | Cleaning</a></li>
-                    <li><a class="dropdown-item" (click)="blogType('travel')" [ngClass]="{active: nav == 'travel'}">Pack Your Bags | Travel</a></li>
-                    <li><a class="dropdown-item" (click)="blogType('fashion')" [ngClass]="{active: nav == 'fashion'}">Classy Threads | Fashion</a></li>
-                    <li><a class="dropdown-item" (click)="blogType('cooking')" [ngClass]="{active: nav == 'cooking'}">Herbs and Lemons | Cooking</a></li>
-                    <li><a class="dropdown-item" (click)="blogType('home')" [ngClass]="{active: nav == 'home'}">A Beautiful Mess | Home Design</a></li>
-                    <li><a class="dropdown-item" (click)="blogType('beauty')" [ngClass]="{active: nav == 'beauty'}">Almost Bare | Beauty</a></li>
+                    <li *ngFor="let cat of categories">
+                        <a class="dropdown-item" (click)="blogType(cat.type)" [ngClass]="{active: nav == cat.type}">
+                            {{cat.title}} | {{cat.type | titlecase}}
+                        </a>
+                    </li>
                 </ul>
             </li>
         </ul>

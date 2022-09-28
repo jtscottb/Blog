@@ -16,18 +16,10 @@
 <div id="collections">
     <h3>Most recent addition:</h3>
     <div class="collections">
-        <a routerLink="/blog/{{latestPost.group}}/{{latestPost.docID}}">
-            <div class="card bg-transparent">
-                <div class="card-body" [ngSwitch]="latestPost.group">
-                    <h4 class="card-title" *ngSwitchCase="types[0]">Daily Dose | {{latestPost.group | titlecase}}</h4>
-                    <h4 class="card-title" *ngSwitchCase="types[1]">Common Cents | {{latestPost.group | titlecase}}</h4>
-                    <h4 class="card-title" *ngSwitchCase="types[2]">Hair, There, Everywhere | {{latestPost.group | titlecase}}</h4>
-                    <h4 class="card-title" *ngSwitchCase="types[3]">Tidy Talk | {{latestPost.group | titlecase}}</h4>
-                    <h4 class="card-title" *ngSwitchCase="types[4]">Pack Your Bags | {{latestPost.group | titlecase}}</h4>
-                    <h4 class="card-title" *ngSwitchCase="types[5]">Classy Threads | {{latestPost.group | titlecase}}</h4>
-                    <h4 class="card-title" *ngSwitchCase="types[6]">Herbs and Lemons | {{latestPost.group | titlecase}}</h4>
-                    <h4 class="card-title" *ngSwitchCase="types[7]">A Beautiful Mess | {{latestPost.group | titlecase}}</h4>
-                    <h4 class="card-title" *ngSwitchCase="types[8]">Almost Bare | {{latestPost.group | titlecase}}</h4>
+        <a routerLink="/blog/{{latestPost.group}}/{{latestPost.docID}}" *ngFor="let cat of categories">
+            <div class="card bg-transparent" *ngIf="latestPost.group == cat.type">
+                <div class="card-body">
+                    <h4 class="card-title">{{cat.title}} | {{latestPost.group | titlecase}}</h4>
 
                     <h5 class="card-title">{{latestPost.date.toDate() | date : 'shortDate'}}</h5>
                     <p class="card-text">{{latestPost.description}}</p>
@@ -38,18 +30,10 @@
 
     <h3>Collections:</h3>
     <div class="collections" *ngFor="let post of posts">
-        <a routerLink="/blog/{{post.group}}/{{post.docID}}">
-            <div class="card bg-transparent">
-                <div class="card-body" [ngSwitch]="post.group">
-                    <h4 class="card-title" *ngSwitchCase="types[0]">Daily Dose | {{post.group | titlecase}}</h4>
-                    <h4 class="card-title" *ngSwitchCase="types[1]">Common Cents | Budgeting and {{post.group | titlecase}}</h4>
-                    <h4 class="card-title" *ngSwitchCase="types[2]">Hair, There, Everywhere | {{post.group | titlecase}} Care</h4>
-                    <h4 class="card-title" *ngSwitchCase="types[3]">Tidy Talk | {{post.group | titlecase}}</h4>
-                    <h4 class="card-title" *ngSwitchCase="types[4]">Pack Your Bags | {{post.group | titlecase}}</h4>
-                    <h4 class="card-title" *ngSwitchCase="types[5]">Classy Threads | {{post.group | titlecase}}</h4>
-                    <h4 class="card-title" *ngSwitchCase="types[6]">Herbs and Lemons | {{post.group | titlecase}}</h4>
-                    <h4 class="card-title" *ngSwitchCase="types[7]">A Beautiful Mess | {{post.group | titlecase}} Design</h4>
-                    <h4 class="card-title" *ngSwitchCase="types[8]">Almost Bare | {{post.group | titlecase}}</h4>
+        <a routerLink="/blog/{{post.group}}/{{post.docID}}" *ngFor="let cat of categories">
+            <div class="card bg-transparent" *ngIf="cat.type == post.group">
+                <div class="card-body">
+                    <h4 class="card-title">{{cat.title}} | {{post.group | titlecase}}</h4>
 
                     <h5 class="card-subtitle">{{post.date.toDate() | date : 'shortDate'}}</h5>
                     <p class="card-text">{{post.description}}</p>

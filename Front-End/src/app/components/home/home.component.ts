@@ -11,7 +11,17 @@ export class HomeComponent implements OnInit {
   posts: Post[] = [];
   randPost!: Post;
   latestPost!: Post;
-  types: string[] = ['journal', 'finance', 'hair', 'cleaning', 'travel', 'fashion', 'cooking', 'home', 'beauty'];
+  categories = [
+    {type: 'journal', title: 'Daily Dose'},
+    {type: 'finance', title: 'Common Cents'},
+    {type: 'hair', title: 'Hair, There, Everywhere'},
+    {type: 'cleaning', title: 'Tidy Talk'},
+    {type: 'travel', title: 'Pack Your Bags'},
+    {type: 'fashion', title: 'Classy Threads'},
+    {type: 'cooking', title: 'Herbs and Lemons'},
+    {type: 'home', title: 'A Beautiful Mess'},
+    {type: 'beauty', title: 'Almost Bare'}
+  ]
 
   constructor(private bs: BlogService) { }
 
@@ -23,8 +33,8 @@ export class HomeComponent implements OnInit {
   }
 
   async getRandomPosts() {
-    for(var t of this.types) {
-      var p: Post = await this.bs.randomPost(t);
+    for(var cat of this.categories) {
+      var p: Post = await this.bs.randomPost(cat.type);
       if(p != undefined) {
         this.posts.push(p);
       }

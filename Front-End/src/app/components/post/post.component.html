@@ -6,15 +6,15 @@
             </div>
             
             <div id="title" [ngSwitch]="type">
-                <h1 *ngSwitchCase="types[0]">Daily Dose | {{type | titlecase}}</h1>
-                <h1 *ngSwitchCase="types[1]">Common Cents | Budgeting and {{type | titlecase}}</h1>
-                <h1 *ngSwitchCase="types[2]">Hair, There, Everywhere | {{type | titlecase}} Care</h1>
-                <h1 *ngSwitchCase="types[3]">Tidy Talk | {{type | titlecase}}</h1>
-                <h1 *ngSwitchCase="types[4]">Pack Your Bags | {{type | titlecase}}</h1>
-                <h1 *ngSwitchCase="types[5]">Classy Threads | {{type | titlecase}}</h1>
-                <h1 *ngSwitchCase="types[6]">Herbs and Lemons | {{type | titlecase}}</h1>
-                <h1 *ngSwitchCase="types[7]">A Beautiful Mess | {{type | titlecase}} Design</h1>
-                <h1 *ngSwitchCase="types[8]">Almost Bare | {{type | titlecase}}</h1>
+                <h1 *ngSwitchCase="'journal'">Daily Dose | {{type | titlecase}}</h1>
+                <h1 *ngSwitchCase="'finance'">Common Cents | Budgeting and {{type | titlecase}}</h1>
+                <h1 *ngSwitchCase="'hair'">Hair, There, Everywhere | {{type | titlecase}} Care</h1>
+                <h1 *ngSwitchCase="'cleaning'">Tidy Talk | {{type | titlecase}}</h1>
+                <h1 *ngSwitchCase="'travel'">Pack Your Bags | {{type | titlecase}}</h1>
+                <h1 *ngSwitchCase="'fashion'">Classy Threads | {{type | titlecase}}</h1>
+                <h1 *ngSwitchCase="'cooking'">Herbs and Lemons | {{type | titlecase}}</h1>
+                <h1 *ngSwitchCase="'home'">A Beautiful Mess | {{type | titlecase}} Design</h1>
+                <h1 *ngSwitchCase="'beauty'">Almost Bare | {{type | titlecase}}</h1>
 
                 <h4>Created on - {{post.date.toDate() | date : 'short'}}</h4>
                 <h4>{{post.description}}</h4>
