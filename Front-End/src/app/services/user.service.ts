@@ -5,6 +5,7 @@ import { initializeApp } from 'firebase/app';
 import { addDoc, collection, deleteDoc, doc, getFirestore, setDoc } from 'firebase/firestore';
 import { environment } from 'src/environments/environment';
 import { User } from '../models/user';
+import { SessionService } from './session.service';
 
 @Injectable({
   providedIn: 'root'
@@ -12,28 +13,11 @@ import { User } from '../models/user';
 export class UserService {
   app: FirebaseApp = initializeApp(environment.firebase);
   db: Firestore = getFirestore(this.app);
-  user: User =  {
-    id: 'ID',
-    email: 'email@email.com',
-    fname: 'FirstName',
-    lname: 'LastName',
-    uname: 'Username',
-    password: 'Password',
-    subscribe: false
-  };
 
-  constructor() { }
+  constructor(private session: SessionService) { }
 
-  addUser(entry: User) {
-    return addDoc(collection(this.db, 'users'), entry);
-  }
-
-  updateUser(entry: User) {
-    return setDoc(doc(this.db, '/users/'+entry.id), entry);
-  }
-
-  deleteUser(entry: User) {
-    return deleteDoc(doc(this.db, '/users/'+entry.id));
+  login(user: User) {
+    this.session.setUser(user);
   }
   
 }

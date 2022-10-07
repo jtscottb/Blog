@@ -1,18 +1,30 @@
 a {
     color: white;
 }
-
 a:hover {
     background-color: rgb(59, 57, 57);
     color: rgb(21, 158, 216);
     cursor: pointer;
 }
-
 .active {
     background-color: rgb(74, 74, 80) !important;
     color: aqua !important;
 }
-
 .dropdown-menu {
     background-color: black;
+}
+.dropdown-container {
+    justify-self: end;
+    position: relative;
+    display: inline-block;
+    width: 100%;
+}
+button > .dropdown {
+    z-index: 2;
+    position: absolute;
+    display: block;
+}
+.error {
+    color: red;
+    font-family: 'Times New Roman', Times, serif !important;
 }

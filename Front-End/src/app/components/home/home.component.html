@@ -16,8 +16,8 @@
 <div id="collections">
     <h3>Most recent addition:</h3>
     <div class="collections">
-        <a routerLink="/blog/{{latestPost.group}}/{{latestPost.docID}}" *ngFor="let cat of categories">
-            <div class="card bg-transparent" *ngIf="latestPost.group == cat.type">
+        <a routerLink="/blog/{{latestPost?.group}}/{{latestPost?.docID}}" *ngFor="let cat of categories">
+            <div class="card bg-transparent" *ngIf="latestPost?.group == cat.type">
                 <div class="card-body">
                     <h4 class="card-title">{{cat.title}} | {{latestPost.group | titlecase}}</h4>
 

@@ -1,5 +1,8 @@
 import { Component, OnInit } from '@angular/core';
+import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import { User } from 'src/app/models/user';
+import { UserService } from 'src/app/services/user.service';
 
 @Component({
   selector: 'app-navbar',
@@ -19,8 +22,21 @@ export class NavbarComponent implements OnInit {
     {type: 'home', title: 'A Beautiful Mess'},
     {type: 'beauty', title: 'Almost Bare'}
   ]
+  showLogin: boolean = false;
+  form: FormGroup;
 
-  constructor(private route: Router) { }
+  constructor(
+    private route: Router,
+    private userService: UserService,
+    private fb: FormBuilder) {
+      this.form = this.fb.group({
+        email: new FormControl('', [
+          Validators.required,
+          Validators.email
+        ]),
+        pword: new FormControl('', Validators.required)
+      });
+    }
 
   ngOnInit(): void {
   }
@@ -34,6 +50,14 @@ export class NavbarComponent implements OnInit {
 
   activeTab(tab: string) {
     this.nav = tab;
+  }
+
+  login() {
+    let user: User = {
+      email: this.form.controls['email'].value,
+      password: this.form.controls['pword'].value
+    }
+    this.userService.login(user);
   }
 
 }

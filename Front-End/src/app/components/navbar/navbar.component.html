@@ -21,5 +21,28 @@
                 </ul>
             </li>
         </ul>
+        <div class="dropdown-container">
+            <button (click)="showLogin = showLogin ? false : true">Are you Courtney?</button>
+            <div *ngIf="showLogin" class="dropdown">
+                <form [formGroup]="form">
+                    <input type="email" formControlName="email" required>
+                    <div class="error" *ngIf="form.controls['email'].invalid && (form.controls['email'].touched || form.controls['email'].dirty)">
+                        <p *ngIf="form.controls['email'].errors?.['pattern']">
+                            Email must follow format email@domain.com
+                        </p>
+                        <p *ngIf="form.controls['email'].errors?.['required']">
+                            Email is required
+                        </p>
+                    </div>
+                    <input type="password" formControlName="pword" required>
+                    <div class="error" *ngIf="form.controls['pword'].invalid && (form.controls['pword'].touched || form.controls['pword'].dirty)">
+                        <p>
+                            Password is required
+                        </p>
+                    </div>
+                    <button [disabled]="form.invalid" (click)="login(); showLogin = false">Submit</button>
+                </form>
+            </div>
+        </div>
     </div>
 </nav>
