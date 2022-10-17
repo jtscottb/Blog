@@ -5,24 +5,24 @@
         <mat-form-field appearance="fill">
             <mat-label>Email</mat-label>
             <input matInput type="email" formControlName="email" placeholder="email@domain.com" required>
-            <div class="error" *ngIf="form.controls['email'].invalid && (form.controls['email'].touched || form.controls['email'].dirty)">
+            <!-- <div class="error" *ngIf="form.controls['email'].invalid && (form.controls['email'].touched || form.controls['email'].dirty)">
                 <p *ngIf="form.controls['email'].errors?.['pattern']">
                     Email must follow format email@domain.com
                 </p>
                 <p *ngIf="form.controls['email'].errors?.['required']">
                     Email is required
                 </p>
-            </div>
+            </div> -->
         </mat-form-field>
 
         <mat-form-field appearance="fill">
             <mat-label>Password</mat-label>
             <input matInput type="password" formControlName="pword" placeholder="password" required>
-            <div class="error" *ngIf="form.controls['pword'].invalid && (form.controls['pword'].touched || form.controls['pword'].dirty)">
+            <!-- <div class="error" *ngIf="form.controls['pword'].invalid && (form.controls['pword'].touched || form.controls['pword'].dirty)">
                 <p>
                     Password is required
                 </p>
-            </div>
+            </div> -->
         </mat-form-field>
         
         <button [disabled]="form.invalid" (click)="login(); showLogin = false">Submit</button>

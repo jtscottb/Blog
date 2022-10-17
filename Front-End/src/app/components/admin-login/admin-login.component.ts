@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormGroup, FormBuilder, FormControl, Validators } from '@angular/forms';
+import { UntypedFormGroup, UntypedFormBuilder, UntypedFormControl, Validators } from '@angular/forms';
 import { UserService } from 'src/app/services/user.service';
 import { User } from 'src/app/models/user';
 
@@ -10,17 +10,17 @@ import { User } from 'src/app/models/user';
 })
 export class AdminLoginComponent implements OnInit {
   showLogin: boolean = false;
-  form: FormGroup;
+  form: UntypedFormGroup;
 
   constructor(
     private userService: UserService,
-    private fb: FormBuilder) {
+    private fb: UntypedFormBuilder) {
     this.form = this.fb.group({
-      email: new FormControl('', [
+      email: new UntypedFormControl('', [
         Validators.required,
         Validators.email
       ]),
-      pword: new FormControl('', Validators.required)
+      pword: new UntypedFormControl('', Validators.required)
     });
   }
 
