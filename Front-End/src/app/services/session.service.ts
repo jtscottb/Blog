@@ -24,6 +24,10 @@ export class SessionService {
   private token: string = '';
 
   constructor() {
+    this.guestUser();
+  }
+
+  guestUser() {
     signInAnonymously(this.auth).then( userCredential => {
       this.user.uid = userCredential.user.uid;
       this.user.isAnonymous = userCredential.user.isAnonymous;
@@ -39,6 +43,9 @@ export class SessionService {
       this.user.uid = userCredential.user.uid;
       this.user.email = userCredential.user.email ? userCredential.user.email : '';
       this.user.isAnonymous = userCredential.user.isAnonymous;
+      userCredential.user.getIdToken().then( token => {
+        this.token = token;
+      });
       console.log(userCredential.user);
     },
     (err) => {

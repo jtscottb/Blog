@@ -13,18 +13,3 @@ a:hover {
 .dropdown-menu {
     background-color: black;
 }
-.dropdown-container {
-    justify-self: end;
-    position: relative;
-    display: inline-block;
-    width: 100%;
-}
-button > .dropdown {
-    z-index: 2;
-    position: absolute;
-    display: block;
-}
-.error {
-    color: red;
-    font-family: 'Times New Roman', Times, serif !important;
-}
