@@ -1,23 +1,30 @@
-#title {
-    text-align: center;
-    margin: auto;
-}
-
-#content {
-    padding: 3% 6%;
-    text-align: justify;
-}
-
 .container-fluid {
 
 }
-
 #page-background {
     padding: 5%;
 }
-
+.button-group,
+.button-group > div {
+    display: flex;
+    flex-flow: row nowrap;
+}
+.button-group {
+    margin-bottom: 1em;
+}
+.button-group button {
+    margin-right: 1em;
+}
 #page {
     background-color: antiquewhite;
     padding: 1.5% 2% 1.5% 2%;
     min-height: 100vh;
+}
+#title {
+    text-align: center;
+    margin: auto;
+}
+#content {
+    padding: 3% 6%;
+    text-align: justify;
 }

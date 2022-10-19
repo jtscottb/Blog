@@ -8,11 +8,15 @@ import { PostComponent } from './components/post/post.component';
 
 const routes: Routes = [
   { path: 'courtney', component: AdminLoginComponent },
-  { path: 'home', component: HomeComponent },
+  { path: 'HOME', component: HomeComponent },
   { path: 'about', component: AboutComponent },
   { path: 'blog/:type', component: BlogComponent },
-  { path: 'blog/:type/:id', component: PostComponent},
-  { path: '', redirectTo: '/home', pathMatch: 'full' },
+  { path: 'post', component: PostComponent,
+      children: [
+        { path: 'new', component: PostComponent }
+      ]
+  },
+  { path: '', redirectTo: '/HOME', pathMatch: 'full' },
 ];
 
 @NgModule({

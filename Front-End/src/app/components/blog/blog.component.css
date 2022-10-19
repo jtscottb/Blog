@@ -1,35 +1,40 @@
 #title {
-    text-align: center;
-    margin: 1.5%;
+    display: flex;
+    flex-direction: column;
+    margin: 1.5% 3.4em;
 }
-
+#title > h1 {
+    position: absolute;
+    align-self: center;
+}
+.mat-raised-button {
+    position: relative;
+    float: left;
+    max-width: fit-content;
+}
 #outerBox {
-    margin: 1.5% 1.5%;
+    margin: auto;
     padding: 0.5%;
     border: 2px solid rgb(0, 0, 0);
     border-radius: 10px;
-    width: 47%;
-    height: 60vh;
+    width: 90%;
+    height: 75vh;
     background-color: black;
-}
 
+}
 #box {
     overflow: auto;
     width: 100%;
     height: 100%;
 }
-
-.container {
-    padding: 1.5% 0%;
-    margin: auto;
-    width: 50%;
+.posts {
+    justify-content: space-around;
 }
-
 .card {
     width: 100%;
     background-color: white !important;
+    color: black;
 }
-
 .card:hover {
     transform: scale(105%);
     transition-duration: 1s;

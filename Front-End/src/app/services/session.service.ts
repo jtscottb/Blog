@@ -2,63 +2,51 @@ import { Injectable } from '@angular/core';
 import { FirebaseApp } from '@angular/fire/app';
 import { Firestore } from '@angular/fire/firestore';
 import { initializeApp } from 'firebase/app';
-import { getAuth, signInAnonymously, signInWithEmailAndPassword } from 'firebase/auth';
 import * as firebase from 'firebase/compat';
 import { getFirestore } from 'firebase/firestore';
+import { BehaviorSubject, Observable, of, Subject } from 'rxjs';
 import { environment } from 'src/environments/environment';
-import { User } from '../models/user';
+import { Post } from '../models/post';
 
 @Injectable({
   providedIn: 'root'
 })
 export class SessionService {
-  app: FirebaseApp = initializeApp(environment.firebase);
-  db: Firestore = getFirestore(this.app);
-  
-  private auth = getAuth(this.app);
-  private user = {
-    uid: '',
-    email: '',
-    isAnonymous: true
-  }
-  private token: string = '';
+  private app: FirebaseApp = initializeApp(environment.firebase);
+  private db: Firestore = getFirestore(this.app);
 
-  constructor() {
-    this.guestUser();
+  public adminSubject = new BehaviorSubject<boolean>(false);
+  public isAdmin = this.adminSubject.asObservable();
+
+  constructor() { }
+
+  setUser(user: any) {
+    localStorage.setItem('user', JSON.stringify(user));
+    this.adminSubject.next(!user.isAnonymous);
   }
 
-  guestUser() {
-    signInAnonymously(this.auth).then( userCredential => {
-      this.user.uid = userCredential.user.uid;
-      this.user.isAnonymous = userCredential.user.isAnonymous;
-      userCredential.user.getIdToken().then( token => {
-        this.token = token;
-      });
-      console.log(userCredential.user);
-    });
+  getUser(): Observable<any> {
+    let user = localStorage.getItem('user');
+    user = user ? JSON.parse(user) : null;
+    return of(user);
   }
 
-  setUser(user: User) {
-    signInWithEmailAndPassword(this.auth, user.email, user.password).then( userCredential => {
-      this.user.uid = userCredential.user.uid;
-      this.user.email = userCredential.user.email ? userCredential.user.email : '';
-      this.user.isAnonymous = userCredential.user.isAnonymous;
-      userCredential.user.getIdToken().then( token => {
-        this.token = token;
-      });
-      console.log(userCredential.user);
-    },
-    (err) => {
-      console.log(err);
-    });
+  setToken(token: string) {
+    localStorage.setItem('token', token);
   }
 
-  getUser(): Object {
-    return this.user;
+  getToken(): Observable<string | null> {
+    return of(localStorage.getItem('token'));
   }
 
-  getToken(): string {
-    return this.token;
+  setPost(post: Post) {
+    localStorage.setItem('post', JSON.stringify(post));
+  }
+
+  getPost(): Observable<any> {
+    let post = localStorage.getItem('post');
+    post = post ? JSON.parse(post) : null;
+    return of(post);
   }
 
 }

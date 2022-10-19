@@ -1,19 +1,16 @@
 h3 {
-    padding: 2% 0% 0% 2%;
     color: rgb(191, 193, 193);
 }
-
 h4 {
     text-align: center;
+    /* white-space: nowrap; */
 }
-
 #titleImage {
     padding: 3%;
     width: 100%;
     background: url('https://st.depositphotos.com/1522993/4737/v/600/depositphotos_47372005-stock-illustration-orange-blue-background-with-triagles.jpg') no-repeat;
     background-size: cover;
 }
-
 #title {
     margin: auto;
     text-align: center;
@@ -21,7 +18,6 @@ h4 {
     padding: 2.7%;
     max-width: fit-content;
 }
-
 #intro {
     padding: 3%;
     width: 100%;
@@ -29,41 +25,18 @@ h4 {
     background-size: cover;
     color: white;
 }
-
-#collections {
-    width: 100%;
-    background: url('https://cdn.pixabay.com/photo/2016/11/21/18/14/wall-1846965__340.jpg') no-repeat;
-    background-size: cover;
-    padding-bottom: 2%;
-    text-align: center;
-}
-
-.collections {
-    width: 33%;
-    margin: 2% 0% 0% 2%;
-    margin: auto;
-}
-
 #header {
     text-align: center;
     background-color: antiquewhite;
     color: black;
     padding: 2%;
 }
-
-.card {
+#collections {
     width: 100%;
-    height: 100%;
-    color: white;
-    border: 2px solid black;
-    padding: 1%;
-    border-radius: 10px;
-    margin: 5%;
-}
-
-.card:hover {
-    transform: scale(105%);
-    transition-duration: 1s;
+    background: url('https://cdn.pixabay.com/photo/2016/11/21/18/14/wall-1846965__340.jpg') no-repeat;
+    background-size: cover;
+    padding-bottom: 2%;
+    text-align: center;
 }
 
 /* ----------- iPhone X ----------- */
@@ -75,7 +48,6 @@ h4 {
     and (-webkit-min-device-pixel-ratio: 3) {
     
 }
-
 /* Portrait */
 @media only screen 
     and (min-device-width: 375px) 
@@ -90,7 +62,6 @@ h4 {
             width: 15vh;
         }
 }
-
 /* Landscape */
 @media only screen 
     and (min-device-width: 375px) 

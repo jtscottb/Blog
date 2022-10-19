@@ -2,10 +2,10 @@
     <div class="container-fluid">
         <ul class="nav nav-tabs">
             <li class="nav-item">
-                <a class="nav-link" routerLink="/home" (click)="activeTab('HOME')" [ngClass]="{active: nav == 'HOME'}">Home</a>
+                <a class="nav-link" routerLink="/HOME" [ngClass]="{active: nav == 'HOME'}">Home</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link"  routerLink="/about" (click)="activeTab('about')" [ngClass]="{active: nav == 'about'}">About</a>
+                <a class="nav-link"  routerLink="/about" [ngClass]="{active: nav == 'about'}">About</a>
             </li>
             <li class="nav-item dropdown">
                 <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false" 
@@ -21,5 +21,11 @@
                 </ul>
             </li>
         </ul>
+        <div class="admin" *ngIf="isAdmin">
+            <p>Hello Courtney</p>
+            <button mat-raised-button (click)="logout()">
+                Logout
+            </button>
+        </div>
     </div>
 </nav>

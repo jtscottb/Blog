@@ -1,9 +1,17 @@
 .login-container {
     display: flex;
+    flex-wrap: wrap;
     align-items: center;
     justify-content: center;
+    height: 100%;
+    margin: auto;
 }
-.error {
-    color: red;
-    font-family: 'Times New Roman', Times, serif !important;
+form {
+    width: 30%;
+    border: thin solid black;
+    padding: 1em;
+    text-align: center;
+}
+form button {
+    margin-bottom: 1.34375em;
 }

@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Post } from 'src/app/models/post';
 import { BlogService } from 'src/app/services/blog.service';
+import { SessionService } from 'src/app/services/session.service';
 
 @Component({
   selector: 'app-home',
@@ -8,10 +9,10 @@ import { BlogService } from 'src/app/services/blog.service';
   styleUrls: ['./home.component.css']
 })
 export class HomeComponent implements OnInit {
-  posts: Post[] = [];
-  randPost!: Post;
-  latestPost!: Post;
-  categories = [
+  public posts: Post[] = [];
+  public randPost!: Post;
+  public latestPost!: Post;
+  public categories = [
     {type: 'journal', title: 'Daily Dose'},
     {type: 'finance', title: 'Common Cents'},
     {type: 'hair', title: 'Hair, There, Everywhere'},
@@ -23,10 +24,11 @@ export class HomeComponent implements OnInit {
     {type: 'beauty', title: 'Almost Bare'}
   ]
 
-  constructor(private bs: BlogService) { }
+  constructor(private blogService: BlogService,
+              private session: SessionService) { }
 
   ngOnInit(): void {
-    this.bs.latestPost().then( (p: Post) => {
+    this.blogService.latestPost().then( (p: Post) => {
       this.latestPost = p;
     });
     this.getRandomPosts();
@@ -34,11 +36,16 @@ export class HomeComponent implements OnInit {
 
   async getRandomPosts() {
     for(var cat of this.categories) {
-      var p: Post = await this.bs.randomPost(cat.type);
+      var p: Post = await this.blogService.randomPost(cat.type);
       if(p != undefined) {
         this.posts.push(p);
       }
     }
+  }
+
+  setPost(post: Post) {
+    post = this.blogService.transformPost(post);
+    this.session.setPost(post);
   }
 
 }

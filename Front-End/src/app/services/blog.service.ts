@@ -3,6 +3,7 @@ import { FirebaseApp } from '@angular/fire/app';
 import { Firestore } from '@angular/fire/firestore';
 import { initializeApp } from 'firebase/app';
 import { getFirestore, collection, addDoc, doc, getDoc, getDocs, setDoc, updateDoc, deleteDoc, QueryDocumentSnapshot, QuerySnapshot, DocumentSnapshot, Timestamp, query, collectionGroup, where, orderBy, limit } from 'firebase/firestore';
+import { BehaviorSubject } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { Post } from '../models/post';
 
@@ -14,6 +15,21 @@ export class BlogService {
   db: Firestore = getFirestore(this.app);
   url: string = 'https://firestore.googleapis.com/v1/projects/adventuring-with-the-banks/databases/(default)/documents/';
   types: string[] = ['journal', 'finance', 'hair', 'cleaning', 'travel', 'fashion', 'cooking', 'home', 'beauty'];
+
+  public groupSubject = new BehaviorSubject<string>('');
+  public group = this.groupSubject.asObservable();
+  
+  private categories = [
+    {type: 'journal', title: 'Daily Dose'},
+    {type: 'finance', title: 'Common Cents'},
+    {type: 'hair', title: 'Hair, There, Everywhere'},
+    {type: 'cleaning', title: 'Tidy Talk'},
+    {type: 'travel', title: 'Pack Your Bags'},
+    {type: 'fashion', title: 'Classy Threads'},
+    {type: 'cooking', title: 'Herbs and Lemons'},
+    {type: 'home', title: 'A Beautiful Mess'},
+    {type: 'beauty', title: 'Almost Bare'}
+  ]
 
   constructor() { }
 
@@ -90,6 +106,24 @@ export class BlogService {
       }
     }
     return latestPost;
+  }
+
+  transformPost(post: Post): Post {
+    let title: string = '';
+    this.categories.forEach( cat => {
+      if(post.group == cat.type) {
+        title = cat.title;
+      }
+    });
+    let fixedPost = {
+      docID: post.docID,
+      title: title,
+      date: post.date,
+      group: post.group,
+      description: post.description,
+      content: post.content
+    }
+    return fixedPost;
   }
   
 }

@@ -1,7 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { UntypedFormGroup, UntypedFormBuilder, UntypedFormControl, Validators } from '@angular/forms';
 import { UserService } from 'src/app/services/user.service';
+import { Router } from '@angular/router';
 import { User } from 'src/app/models/user';
+import { Observable, Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-admin-login',
@@ -9,12 +11,17 @@ import { User } from 'src/app/models/user';
   styleUrls: ['./admin-login.component.css']
 })
 export class AdminLoginComponent implements OnInit {
-  showLogin: boolean = false;
-  form: UntypedFormGroup;
+  public showError: boolean = false;
+  public form: UntypedFormGroup;
+  public loginError = {
+    code: '',
+    message: ''
+  };
+  private subs: Subscription[] = [];
 
-  constructor(
-    private userService: UserService,
-    private fb: UntypedFormBuilder) {
+  constructor(private router: Router,
+              private userService: UserService,
+              private fb: UntypedFormBuilder) {
     this.form = this.fb.group({
       email: new UntypedFormControl('', [
         Validators.required,
@@ -27,12 +34,23 @@ export class AdminLoginComponent implements OnInit {
   ngOnInit(): void {
   }
 
+  ngOnDestroy() {
+    this.subs.forEach( s => {s.unsubscribe()});
+  }
+
   login() {
-    let user: User = {
-      email: this.form.controls['email'].value,
-      password: this.form.controls['pword'].value
-    }
-    this.userService.login(user);
+    const email: string = this.form.controls['email'].value;
+    const password: string = this.form.controls['pword'].value;
+    this.userService.login(email, password).then( (isAdmin: boolean) => {
+      if(isAdmin) {
+        this.showError = false;
+        this.router.navigate(['/HOME']);
+      }
+      else {
+        this.showError = true;
+        this.loginError = this.userService.error;
+      }
+    });
   }
 
 }
