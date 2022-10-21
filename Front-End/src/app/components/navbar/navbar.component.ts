@@ -59,7 +59,6 @@ export class NavbarComponent implements OnInit {
   }
   
   blogType(type: string) {
-    this.blogService.groupSubject.next(type);
     this.router.navigate(['']).then( () => {
         this.router.navigate(['/blog/'+type]);
     });

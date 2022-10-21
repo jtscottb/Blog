@@ -15,11 +15,8 @@ export class BlogService {
   db: Firestore = getFirestore(this.app);
   url: string = 'https://firestore.googleapis.com/v1/projects/adventuring-with-the-banks/databases/(default)/documents/';
   types: string[] = ['journal', 'finance', 'hair', 'cleaning', 'travel', 'fashion', 'cooking', 'home', 'beauty'];
-
-  public groupSubject = new BehaviorSubject<string>('');
-  public group = this.groupSubject.asObservable();
   
-  private categories = [
+  public categories = [
     {type: 'journal', title: 'Daily Dose'},
     {type: 'finance', title: 'Common Cents'},
     {type: 'hair', title: 'Hair, There, Everywhere'},

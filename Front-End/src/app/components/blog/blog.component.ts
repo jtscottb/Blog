@@ -15,17 +15,7 @@ export class BlogComponent implements OnInit {
   title!: string;
   DOCS!: Post[];
   public isAdmin: boolean = false;
-  public categories = [
-    {type: 'journal', title: 'Daily Dose'},
-    {type: 'finance', title: 'Common Cents'},
-    {type: 'hair', title: 'Hair, There, Everywhere'},
-    {type: 'cleaning', title: 'Tidy Talk'},
-    {type: 'travel', title: 'Pack Your Bags'},
-    {type: 'fashion', title: 'Classy Threads'},
-    {type: 'cooking', title: 'Herbs and Lemons'},
-    {type: 'home', title: 'A Beautiful Mess'},
-    {type: 'beauty', title: 'Almost Bare'}
-  ]
+  
   private subs: Subscription[];
 
   constructor(private router: Router,
@@ -47,7 +37,7 @@ export class BlogComponent implements OnInit {
 
   blogType() {
     this.type = String(this.route.snapshot.paramMap.get('type'));
-    this.categories.forEach( cat => {
+    this.blogService.categories.forEach( cat => {
       if(this.type == cat.type) {
         this.title = cat.title;
       }
@@ -63,14 +53,10 @@ export class BlogComponent implements OnInit {
 
   setPost(post: Post) {
     this.session.setPost(post);
-    this.blogService.groupSubject.next(post.group);
   }
 
   addPost() {
     this.router.navigate(['post/new']);
-    /* this.router.navigate(['']).then( () => {
-      this.router.navigate(['/blog/' + this.type + '/new'])
-    }); */
   }
 
 }

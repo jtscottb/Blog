@@ -27,4 +27,15 @@
 #content {
     padding: 3% 6%;
     text-align: justify;
+    height: 73vh;
+}
+.mat-form-field {
+    width: 100%;
+}
+textarea {
+    border: thin solid black;
+    border-radius: 5px;
+}
+#content textarea {
+    height: 62vh;
 }
