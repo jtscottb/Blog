@@ -17,8 +17,8 @@
     <div class="posts">
         <h3>Collections</h3>
         <div class="card-container" *ngFor="let post of latestPosts">
-            <a routerLink="/post">
-                <div class="card" (click)="setPost(post)">
+            <a routerLink="/post/{{post.group}}/{{post.docID}}">
+                <div class="card">
                     <div class="card-body">
                         <h4 class="card-title">{{post.title}} | {{post.group | titlecase}}</h4>
 

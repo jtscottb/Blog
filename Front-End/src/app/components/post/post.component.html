@@ -1,15 +1,18 @@
 <div class="row">
     <div class="col">
-        <h6 *ngFor="let post of posts" (click)="selectedPost = post">
-            <b>{{post.description}}</b> - {{post.date.toDate() | date: 'short'}}
-        </h6>
+        <mat-form-field appearance="fill">
+            <mat-label>Search Posts</mat-label>
+            <input matInput type="text" [(ngModel)]="searchString" (input)="filterPosts()">
+        </mat-form-field>
+        <div class="posts">
+            <h6 class="post" *ngFor="let post of filteredPosts" (click)="selectedPost = post">
+                <b>{{post.description}}</b> - {{post.date.toDate() | date: 'short'}}
+            </h6>
+        </div>
     </div>
     <div class="col">
         <div id="page-background">
             <div class="button-group">
-                <button mat-raised-button color="primary" (click)="back()">
-                    Back to Home
-                </button>
                 <div *ngIf="isAdmin">
                     <button mat-raised-button color="accent" (click)="operation = 'new'">
                         Add Post

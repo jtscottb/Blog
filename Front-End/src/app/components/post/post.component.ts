@@ -1,6 +1,6 @@
-import { Component, OnInit, Input } from '@angular/core';
-import { ActivatedRoute, NavigationEnd, Router, NavigationExtras } from '@angular/router';
-import { Observable, Observer, Subscription } from 'rxjs';
+import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
+import { BehaviorSubject, Observable, Observer, Subscription } from 'rxjs';
 import { Timestamp } from 'firebase/firestore';
 import { Post } from 'src/app/models/post';
 import { BlogService } from 'src/app/services/blog.service';
@@ -18,8 +18,10 @@ export class PostComponent implements OnInit {
     type: '',
     title: ''
   };
+  public filteredPosts!: Post[];
+  public searchString: string = '';
   public selectedPost!: Post;
-  public posts!: Post[];
+  public posts: Post[] = [];
 
   public time = new Observable<string>( (observer: Observer<string>) => {
     setInterval( () => observer.next(new Date().toString()), 1000 );
@@ -44,15 +46,20 @@ export class PostComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    let p = this.session.getPost().subscribe( (post: Post) => {
+    const id = this.route.snapshot.paramMap.get('id')?.toString();
+    const type = this.route.snapshot.paramMap.get('type')?.toString();
+    if(type && id) {
+      this.blogService.getPost(type, id).then( (post: Post) => {
+        this.selectedPost = post;
+        this.getCategoryPosts();
+        this.getCategoryTypes();
+      });
+    }
+
+    /* let p = this.session.getPost().subscribe( (post: Post) => {
       post.date = new Timestamp(post.date.seconds, post.date.nanoseconds);
       this.selectedPost = post;
-    });
-    this.subs.push(p);
-    this.getCategoryTypes();
-    this.blogService.getPosts(this.selectedPost.group).then( (posts: Post[]) => {
-      this.posts = posts;
-    });
+    }); */
 
     this.editForm = this.fb.group({
       description: new UntypedFormControl(this.selectedPost.description, Validators.required),
@@ -69,8 +76,25 @@ export class PostComponent implements OnInit {
     this.subs.forEach( s => s.unsubscribe());
   }
 
+  getCategoryPosts() {
+    this.blogService.getPosts(this.selectedPost.group).then( (posts: Post[]) => {
+      this.posts = posts;
+      this.filteredPosts = posts;
+    });
+  }
+
   getCategoryTypes() {
     this.blogService.categories.forEach( cat => this.groups.push({type: cat.type, title: cat.title}));
+  }
+
+  filterPosts() {
+    if(this.searchString != '') {
+      this.filteredPosts = this.posts.filter( (post: Post) => {
+        return post.description.toLowerCase().includes(this.searchString.toLowerCase());
+      });
+    } else {
+      this.filteredPosts = this.posts;
+    }
   }
 
   back() {
@@ -86,6 +110,7 @@ export class PostComponent implements OnInit {
       console.log(error);
     });
     this.operation = undefined;
+    this.getCategoryPosts();
   }
 
   addDoc() {
@@ -102,6 +127,7 @@ export class PostComponent implements OnInit {
       this.router.navigate(['/blog/' + this.selectedGroup.type]);
     });
     this.operation = undefined;
+    this.getCategoryPosts();
   }
 
   delete() {
@@ -111,6 +137,7 @@ export class PostComponent implements OnInit {
     }, (error: any) => {
       console.log(error);
     });
+    this.getCategoryPosts();
   }
 
 }

@@ -11,11 +11,7 @@ const routes: Routes = [
   { path: 'HOME', component: HomeComponent },
   { path: 'about', component: AboutComponent },
   { path: 'blog/:type', component: BlogComponent },
-  { path: 'post', component: PostComponent,
-      children: [
-        { path: 'new', component: PostComponent }
-      ]
-  },
+  { path: 'post/:type/:id', component: PostComponent },
   { path: '', redirectTo: '/HOME', pathMatch: 'full' },
 ];
 

@@ -30,8 +30,4 @@ export class HomeComponent implements OnInit {
     this.subs.forEach( s => s.unsubscribe());
   }
 
-  setPost(post: Post) {
-    this.session.setPost(post);
-  }
-
 }
