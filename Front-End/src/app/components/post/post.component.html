@@ -1,66 +1,78 @@
-<div id="page-background">
-    <div class="button-group">
-        <button mat-raised-button color="primary" (click)="back()">
-            Back to {{post.group | titlecase}}
-        </button>
-        <div *ngIf="isAdmin">
-            <button mat-raised-button color="accent" (click)="operation = 'edit'">
-                Edit
-            </button>
-            <button mat-raised-button color="warn" (click)="delete()" *ngIf="operation != 'new'">
-                Delete
-            </button>
-            <button mat-raised-button color="accent" (click)="submitEdit()" *ngIf="operation == 'edit'" [disabled]="editForm.invalid">
-                Submit
-            </button>
-            <button mat-raised-button color="accent" (click)="addDoc()" *ngIf="operation == 'new'" [disabled]="newForm.invalid">
-                Add
-            </button>
-        </div>
+<div class="row">
+    <div class="col">
+        <h6 *ngFor="let post of posts" (click)="selectedPost = post">
+            <b>{{post.description}}</b> - {{post.date.toDate() | date: 'short'}}
+        </h6>
     </div>
-    <div id="page">
-        <div class="d-flex">
-            <div id="title" *ngIf="!operation">
-                <h1>{{post.title}} | {{post.group | titlecase}}</h1>
-
-                <h4>Created on - {{post.date.toDate() | date : 'short'}}</h4>
-                <h4>{{post.description}}</h4>
+    <div class="col">
+        <div id="page-background">
+            <div class="button-group">
+                <button mat-raised-button color="primary" (click)="back()">
+                    Back to Home
+                </button>
+                <div *ngIf="isAdmin">
+                    <button mat-raised-button color="accent" (click)="operation = 'new'">
+                        Add Post
+                    </button>
+                    <button mat-raised-button color="accent" (click)="operation = 'edit'">
+                        Edit
+                    </button>
+                    <button mat-raised-button color="warn" (click)="delete()" *ngIf="operation != 'new'">
+                        Delete
+                    </button>
+                    <button mat-raised-button color="accent" (click)="submitEdit()" *ngIf="operation == 'edit'" [disabled]="editForm.invalid">
+                        Submit
+                    </button>
+                    <button mat-raised-button color="accent" (click)="addDoc()" *ngIf="operation == 'new'" [disabled]="newForm.invalid">
+                        Add
+                    </button>
+                </div>
             </div>
-            <div id="title" *ngIf="operation == 'edit'">
-                <h1>{{post.title}} | {{post.group | titlecase}}</h1>
-                <h4>Created on - {{post.date.toDate() | date : 'short'}}</h4>
-                <mat-form-field [formGroup]="editForm">
-                    <textarea matInput formControlName="description"></textarea>
-                </mat-form-field>
+            <div id="page">
+                <div class="d-flex">
+                    <div id="title" *ngIf="!operation">
+                        <h1>{{selectedPost.title}} | {{selectedPost.group | titlecase}}</h1>
+        
+                        <h4>Created on - {{selectedPost.date.toDate() | date : 'short'}}</h4>
+                        <h4>{{selectedPost.description}}</h4>
+                    </div>
+                    <div id="title" *ngIf="operation == 'edit'">
+                        <h1>{{selectedPost.title}} | {{selectedPost.group | titlecase}}</h1>
+                        <h4>Created on - {{selectedPost.date.toDate() | date : 'short'}}</h4>
+                        <mat-form-field [formGroup]="editForm">
+                            <textarea matInput formControlName="description"></textarea>
+                        </mat-form-field>
+                    </div>
+                    <div id="title" *ngIf="operation == 'new'">
+                        <mat-form-field [formGroup]="newForm">
+                            <mat-label>Group</mat-label>
+                            <mat-select single [(value)]="selectedGroup" formControlName="group" required>
+                                <mat-option *ngFor="let group of groups" [value]="group">
+                                    {{group.type | titlecase}} | {{group.title}}
+                                </mat-option>
+                            </mat-select>
+                        </mat-form-field>
+                        <h4>Date - {{ time | async | date : 'short' }}</h4>
+                        <mat-form-field [formGroup]="newForm">
+                            <mat-label>Description</mat-label>
+                            <textarea matInput formControlName="description" placeholder="Description" required></textarea>
+                        </mat-form-field>
+                    </div>
+                </div>
+        
+                <hr>
+        
+                <div id="content">
+                    <p *ngIf="!operation">{{selectedPost.content}}</p>
+                    <mat-form-field [formGroup]="editForm" *ngIf="operation == 'edit'">
+                        <textarea matInput formControlName="content"></textarea>
+                    </mat-form-field>
+                    <mat-form-field [formGroup]="newForm" *ngIf="operation == 'new'">
+                        <mat-label>Content</mat-label>
+                        <textarea matInput formControlName="content" placeholder="Content" required></textarea>
+                    </mat-form-field>
+                </div>
             </div>
-            <div id="title" *ngIf="operation == 'new'">
-                <!-- <h1>{{post.title}} | {{type | titlecase}}</h1> -->
-                <mat-form-field [formGroup]="newForm">
-                    <mat-label>Group</mat-label>
-                    <mat-select single [(value)]="selectedGroup" formControlName="group" required>
-                        <mat-option *ngFor="let group of groups" [value]="{type: group.type, title: group.title}">
-                            {{group.type | titlecase}} | {{group.title}}
-                        </mat-option>
-                    </mat-select>
-                </mat-form-field>
-                <mat-form-field [formGroup]="newForm">
-                    <mat-label>Description</mat-label>
-                    <textarea matInput formControlName="description" placeholder="Description" required></textarea>
-                </mat-form-field>
-            </div>
-        </div>
-
-        <hr>
-
-        <div id="content">
-            <p *ngIf="!operation">{{post.content}}</p>
-            <mat-form-field [formGroup]="editForm" *ngIf="operation == 'edit'">
-                <textarea matInput formControlName="content"></textarea>
-            </mat-form-field>
-            <mat-form-field [formGroup]="newForm" *ngIf="operation == 'new'">
-                <mat-label>Content</mat-label>
-                <textarea matInput formControlName="content" placeholder="Content" required></textarea>
-            </mat-form-field>
         </div>
     </div>
 </div>

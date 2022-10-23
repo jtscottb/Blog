@@ -3,7 +3,7 @@ import { FirebaseApp } from '@angular/fire/app';
 import { Firestore } from '@angular/fire/firestore';
 import { initializeApp } from 'firebase/app';
 import { getFirestore, collection, addDoc, doc, getDoc, getDocs, setDoc, updateDoc, deleteDoc, QueryDocumentSnapshot, QuerySnapshot, DocumentSnapshot, Timestamp, query, collectionGroup, where, orderBy, limit } from 'firebase/firestore';
-import { BehaviorSubject } from 'rxjs';
+import { BehaviorSubject, Observable, of } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { Post } from '../models/post';
 
@@ -14,7 +14,6 @@ export class BlogService {
   app: FirebaseApp = initializeApp(environment.firebase);
   db: Firestore = getFirestore(this.app);
   url: string = 'https://firestore.googleapis.com/v1/projects/adventuring-with-the-banks/databases/(default)/documents/';
-  types: string[] = ['journal', 'finance', 'hair', 'cleaning', 'travel', 'fashion', 'cooking', 'home', 'beauty'];
   
   public categories = [
     {type: 'journal', title: 'Daily Dose'},
@@ -27,8 +26,10 @@ export class BlogService {
     {type: 'home', title: 'A Beautiful Mess'},
     {type: 'beauty', title: 'Almost Bare'}
   ]
+  private latestPosts: Post[] = [];
 
-  constructor() { }
+  constructor() {
+  }
 
   async getPosts(blog: string): Promise<Post[]> {
     const DOCS: Post[] = [];
@@ -38,6 +39,7 @@ export class BlogService {
           docID: doc.id,
           date: doc.get('date'),
           group: doc.get('group'),
+          title: doc.get('title'),
           description: doc.get('description'),
           content: doc.get('content')
         }
@@ -47,22 +49,23 @@ export class BlogService {
     return DOCS;
   }
 
-  getPost(blog: string, docID: string): Post {
+  async getPost(blog: string, docID: string): Promise<Post> {
     var post: Post = {
-      docID: '',
+      docID: 'id',
       date: new Timestamp(new Date().getTime()/1000, new Date().getMilliseconds()),
       group: 'group',
-      description: '',
-      content: ''
+      title: 'title',
+      description: 'description',
+      content: 'content'
     };
-    getDoc(doc(this.db, '/'+blog+'/'+docID)).then( (doc: DocumentSnapshot) => {
+    await getDoc(doc(this.db, '/'+blog+'/'+docID)).then( (doc: DocumentSnapshot) => {
       post.docID = doc.id;
       post.date = doc.get('date');
       post.group = doc.get('group');
+      post.title = doc.get('title');
       post.description = doc.get('description');
       post.content = doc.get('content');
     });
-
     return post;
   }
 
@@ -79,48 +82,33 @@ export class BlogService {
   }
 
   async randomPost(blog: string): Promise<Post> {
-    const type: string = this.types[Math.floor(Math.random()*this.types.length)];
+    const type: string = this.categories[Math.floor(Math.random()*this.categories.length)].type;
     const DOCS: Post[] = await this.getPosts(blog);
     let randPost: Post = DOCS[Math.floor(Math.random()*DOCS.length)];
 
     return randPost;
   }
 
-  async latestPost(): Promise<Post> {
-    var latestPost: Post = {
-      docID: 'id',
-      date: new Timestamp(new Date('May 7, 2022 10:45:00').getTime()/1000, new Date().getMilliseconds()),
-      group: 'group',
-      description: 'description',
-      content: 'content'
-    };
-    for(var t of this.types) {
-      var DOCS: Post[] = await this.getPosts(t);
-      if(DOCS.length > 0) {
-        for(var d of DOCS) {
-          latestPost = latestPost.date < d.date ? d : latestPost;
+  getLatestPosts(): Observable<Post[]> {
+    this.latestPosts = [];
+    for(let cat of this.categories) {
+      this.getPosts(cat.type).then( (posts: Post[]) => {
+        var latestPost: Post = {
+          title: '',
+          date: new Timestamp(new Date('May 7, 2022 10:45:00').getTime()/1000, new Date().getMilliseconds()),
+          group: '',
+          description: '',
+          content: ''
+        };
+        if(posts.length) {
+          for(let p of posts) {
+            latestPost = latestPost.date < p.date ? p : latestPost;
+          }
+          this.latestPosts.push(latestPost);
         }
-      }
+      });
     }
-    return latestPost;
-  }
-
-  transformPost(post: Post): Post {
-    let title: string = '';
-    this.categories.forEach( cat => {
-      if(post.group == cat.type) {
-        title = cat.title;
-      }
-    });
-    let fixedPost = {
-      docID: post.docID,
-      title: title,
-      date: post.date,
-      group: post.group,
-      description: post.description,
-      content: post.content
-    }
-    return fixedPost;
+    return of(this.latestPosts);
   }
   
 }

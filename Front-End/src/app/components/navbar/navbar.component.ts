@@ -34,7 +34,7 @@ export class NavbarComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    let a = this.session.isAdmin.subscribe( value => this.isAdmin = value);
+    let a = this.session.getIsAdmin().subscribe( value => this.isAdmin = value);
     let u = this.router.events.subscribe( event => {
       if(event instanceof NavigationEnd) {
         this.nav = event.url.split('/').find( value => {
@@ -66,7 +66,7 @@ export class NavbarComponent implements OnInit {
 
   logout() {
     this.userService.logout();
-    this.router.navigate(['HOME']);
+    // this.router.navigate(['HOME']);
   }
 
 }

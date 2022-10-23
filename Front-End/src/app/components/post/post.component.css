@@ -1,20 +1,45 @@
-.container-fluid {
-
+.row,
+.col {
+    max-width: 100%;
+    margin: 0;
+    padding: 0;
+}
+/* -------------------------------------------------------------------- */
+/* SIDE PANEL */
+/* -------------------------------------------------------------------- */
+.col:first-child {
+    background-color: rgb(33, 37, 41);
+    max-width: 20% !important;
+    border-top: solid rgba(186, 181, 181, 0.979);
+}
+.row > .col > h6 {
+    cursor: pointer;
+    padding: 5px;
+    margin: 0;
+    border-bottom: solid rgba(186, 181, 181, 0.979);
+    color: white;
+}
+/* -------------------------------------------------------------------- */
+/* MAIN PAGE */
+/* -------------------------------------------------------------------- */
+.col:last-child {
+    max-width: 80% !important;
 }
 #page-background {
-    padding: 5%;
+    padding: 2.5%;
 }
 .button-group,
 .button-group > div {
     display: flex;
     flex-flow: row nowrap;
 }
-.button-group {
-    margin-bottom: 1em;
-}
 .button-group button {
     margin-right: 1em;
+    margin-bottom: 1em;
 }
+/* -------------------------------------------------------------------- */
+/* PAGE CONTENT */
+/* -------------------------------------------------------------------- */
 #page {
     background-color: antiquewhite;
     padding: 1.5% 2% 1.5% 2%;
@@ -25,10 +50,13 @@
     margin: auto;
 }
 #content {
-    padding: 3% 6%;
+    padding: 3%;
     text-align: justify;
     height: 73vh;
 }
+/* -------------------------------------------------------------------- */
+/* EDIT PAGE INPUT */
+/* -------------------------------------------------------------------- */
 .mat-form-field {
     width: 100%;
 }

@@ -15,27 +15,12 @@
 
 <div id="collections">
     <div class="posts">
-        <h3>Most recent addition</h3>
-        <div class="post-container">
-            <a routerLink="/post" *ngFor="let cat of categories">
-                <div class="card" *ngIf="latestPost?.group == cat.type" (click)="setPost(latestPost)">
-                    <div class="card-body">
-                        <h4 class="card-title">{{cat.title}} | {{latestPost.group | titlecase}}</h4>
-
-                        <h5 class="card-title">{{latestPost.date.toDate() | date : 'shortDate'}}</h5>
-                        <p class="card-text">{{latestPost.description}}</p>
-                    </div>
-                </div>
-            </a>
-        </div>
-    </div>
-    <div class="posts">
         <h3>Collections</h3>
-        <div class="post-container" *ngFor="let post of posts">
-            <a routerLink="/post" *ngFor="let cat of categories">
-                <div class="card" *ngIf="cat.type == post.group" (click)="setPost(post)">
+        <div class="post-container" *ngFor="let post of latestPosts">
+            <a routerLink="/post">
+                <div class="card" (click)="setPost(post)">
                     <div class="card-body">
-                        <h4 class="card-title">{{cat.title}} | {{post.group | titlecase}}</h4>
+                        <h4 class="card-title">{{post.title}} | {{post.group | titlecase}}</h4>
 
                         <h5 class="card-subtitle">{{post.date.toDate() | date : 'shortDate'}}</h5>
                         <p class="card-text">{{post.description}}</p>

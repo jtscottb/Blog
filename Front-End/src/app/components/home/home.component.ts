@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Subscription } from 'rxjs';
 import { Post } from 'src/app/models/post';
 import { BlogService } from 'src/app/services/blog.service';
 import { SessionService } from 'src/app/services/session.service';
@@ -11,40 +12,25 @@ import { SessionService } from 'src/app/services/session.service';
 export class HomeComponent implements OnInit {
   public posts: Post[] = [];
   public randPost!: Post;
-  public latestPost!: Post;
-  public categories = [
-    {type: 'journal', title: 'Daily Dose'},
-    {type: 'finance', title: 'Common Cents'},
-    {type: 'hair', title: 'Hair, There, Everywhere'},
-    {type: 'cleaning', title: 'Tidy Talk'},
-    {type: 'travel', title: 'Pack Your Bags'},
-    {type: 'fashion', title: 'Classy Threads'},
-    {type: 'cooking', title: 'Herbs and Lemons'},
-    {type: 'home', title: 'A Beautiful Mess'},
-    {type: 'beauty', title: 'Almost Bare'}
-  ]
+  public latestPosts!: Post[];
+  public categories: any[] = []
+  public subs: Subscription[] = [];
 
   constructor(private blogService: BlogService,
               private session: SessionService) { }
 
   ngOnInit(): void {
-    this.blogService.latestPost().then( (p: Post) => {
-      this.latestPost = p;
+    let p = this.blogService.getLatestPosts().subscribe( (posts: Post[]) => {
+      this.latestPosts = posts;
     });
-    this.getRandomPosts();
+    this.subs.push(p);
   }
 
-  async getRandomPosts() {
-    for(var cat of this.categories) {
-      var p: Post = await this.blogService.randomPost(cat.type);
-      if(p != undefined) {
-        this.posts.push(p);
-      }
-    }
+  ngOnDestroy() {
+    this.subs.forEach( s => s.unsubscribe());
   }
 
   setPost(post: Post) {
-    post = this.blogService.transformPost(post);
     this.session.setPost(post);
   }
 

@@ -15,14 +15,13 @@ export class SessionService {
   private app: FirebaseApp = initializeApp(environment.firebase);
   private db: Firestore = getFirestore(this.app);
 
-  public adminSubject = new BehaviorSubject<boolean>(false);
-  public isAdmin = this.adminSubject.asObservable();
+  private isAdmin = new BehaviorSubject<boolean>(false);
 
   constructor() { }
 
   setUser(user: any) {
     localStorage.setItem('user', JSON.stringify(user));
-    this.adminSubject.next(!user.isAnonymous);
+    this.setIsAdmin(!user.isAnonymous);
   }
 
   getUser(): Observable<any> {
@@ -47,6 +46,14 @@ export class SessionService {
     let post = localStorage.getItem('post');
     post = post ? JSON.parse(post) : null;
     return of(post);
+  }
+
+  setIsAdmin(value: boolean) {
+    this.isAdmin.next(value);
+  }
+
+  getIsAdmin(): Observable<boolean> {
+    return this.isAdmin;
   }
 
 }

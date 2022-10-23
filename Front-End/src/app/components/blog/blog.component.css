@@ -2,7 +2,8 @@
     display: flex;
     position: relative;
     flex-direction: column;
-    margin: 1.5% 3.4em;
+    margin: 1.5% auto;
+    width: 90%;
 }
 #title > .admin {
     position: fixed;

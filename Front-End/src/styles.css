@@ -5,12 +5,6 @@
 html, body {
     height: 100%;
 }
-h1 {
-    /* font-size: 3vw; */
-}
-h5 {
-    /* font-size: 1.4vw; */
-}
 p {
     font-size: 14px;
     font-family: Brush Script MT, cursive;
@@ -22,6 +16,12 @@ a {
 body {
     margin: 0;
     font-family: Roboto, "Helvetica Neue", sans-serif;
+}
+.navbar {
+    position: sticky;
+    top: 0;
+    left: 0;
+    z-index: 100;
 }
 /* ----------------------------------------------------------------------- */
 /* ADMIN SECTION */
@@ -42,20 +42,15 @@ body {
     color: red;
     font-family: 'Times New Roman', Times, serif !important;
 }
-/* ----------------------------------------------------------------------- */
-/* END ADMIN SECTION */
-/* ----------------------------------------------------------------------- */
+/* ---------------------------------------------------------------------- */
 /* BLOG POSTS */
-/* ----------------------------------------------------------------------- */
+/* ---------------------------------------------------------------------- */
 .posts {
     max-width: 100%;
     display: flex;
     justify-content: space-between;
     flex-wrap: wrap;
     padding: 1em;
-}
-.posts:first-child {
-    justify-content: center;
 }
 .posts > h3 {
     position: relative;
@@ -66,7 +61,7 @@ body {
 }
 .post-container {
     width: 20%;
-    margin: 1em 0.5em;
+    margin: 1em;
 }
 .card {
     width: 100%;
@@ -83,6 +78,6 @@ body {
 .card .card-text {
     text-align: left;
 }
-/* ----------------------------------------------------------------------- */
+/* ---------------------------------------------------------------------- */
 /* END BLOG POSTS */
-/* ----------------------------------------------------------------------- */
+/* ---------------------------------------------------------------------- */

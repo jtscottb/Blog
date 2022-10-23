@@ -26,9 +26,8 @@ export class UserService {
     let u = this.session.getUser().subscribe( user => {
       if(!user) {
         this.signInAsGuest();
-        console.log('guest')
       } else if(!user.isAnonymous && user.uid) {
-        session.adminSubject.next(true);
+        this.session.setIsAdmin(true);
       }
     });
     this.subs = [u];

@@ -22,7 +22,7 @@ export class BlogComponent implements OnInit {
               private route: ActivatedRoute,
               private blogService: BlogService,
               private session: SessionService) {
-    let u = this.session.isAdmin.subscribe( value => this.isAdmin = value);
+    let u = this.session.getIsAdmin().subscribe( value => this.isAdmin = value);
     this.subs = [u];
   }
 
@@ -46,9 +46,6 @@ export class BlogComponent implements OnInit {
 
   async getPosts() {
     this.DOCS = await this.blogService.getPosts(this.type);
-    this.DOCS.forEach( doc => {
-      doc.title = this.title;
-    });
   }
 
   setPost(post: Post) {

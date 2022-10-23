@@ -1,6 +1,6 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { ActivatedRoute, NavigationEnd, Router, NavigationExtras } from '@angular/router';
-import { Subscription } from 'rxjs';
+import { Observable, Observer, Subscription } from 'rxjs';
 import { Timestamp } from 'firebase/firestore';
 import { Post } from 'src/app/models/post';
 import { BlogService } from 'src/app/services/blog.service';
@@ -18,8 +18,12 @@ export class PostComponent implements OnInit {
     type: '',
     title: ''
   };
-  public post!: Post;
+  public selectedPost!: Post;
+  public posts!: Post[];
 
+  public time = new Observable<string>( (observer: Observer<string>) => {
+    setInterval( () => observer.next(new Date().toString()), 1000 );
+  })
   public description: string = '';
   public content: string = '';
 
@@ -35,28 +39,30 @@ export class PostComponent implements OnInit {
               private blogService: BlogService,
               private session: SessionService,
               private fb: UntypedFormBuilder) {
-    let u = this.session.isAdmin.subscribe( value => this.isAdmin = value);
+    let u = this.session.getIsAdmin().subscribe( value => this.isAdmin = value);
     this.subs = [u];
   }
 
   ngOnInit(): void {
     let p = this.session.getPost().subscribe( (post: Post) => {
       post.date = new Timestamp(post.date.seconds, post.date.nanoseconds);
-      this.post = post;
+      this.selectedPost = post;
     });
-    this.operation = this.router.url.split('/').find( val => val == 'new');
+    this.subs.push(p);
     this.getCategoryTypes();
+    this.blogService.getPosts(this.selectedPost.group).then( (posts: Post[]) => {
+      this.posts = posts;
+    });
 
     this.editForm = this.fb.group({
-      description: new UntypedFormControl(this.post.description, Validators.required),
-      content: new UntypedFormControl(this.post.content, Validators.required)
+      description: new UntypedFormControl(this.selectedPost.description, Validators.required),
+      content: new UntypedFormControl(this.selectedPost.content, Validators.required)
     })
     this.newForm = this.fb.group({
       group: new UntypedFormControl('', Validators.required),
       description: new UntypedFormControl('', Validators.required),
       content: new UntypedFormControl('', Validators.required)
     })
-    this.subs.push(p);
   }
 
   ngOnDestroy() {
@@ -68,14 +74,14 @@ export class PostComponent implements OnInit {
   }
 
   back() {
-    this.router.navigate(['/blog/' + this.post.group]);
+    this.router.navigate(['']);
   }
 
   submitEdit() {
-    this.post.description = this.editForm.controls['description'].value;
-    this.post.content = this.editForm.controls['content'].value;
-    this.blogService.updatePost(this.post.group, this.post).then( () => {
-      this.session.setPost(this.post);
+    this.selectedPost.description = this.editForm.controls['description'].value;
+    this.selectedPost.content = this.editForm.controls['content'].value;
+    this.blogService.updatePost(this.selectedPost.group, this.selectedPost).then( () => {
+      this.session.setPost(this.selectedPost);
     }, (error: any) => {
       console.log(error);
     });
@@ -87,6 +93,7 @@ export class PostComponent implements OnInit {
     var doc: Post = {
       date: new Timestamp(date.getTime()/1000, date.getMilliseconds()),
       group: this.selectedGroup.type,
+      title: this.selectedGroup.title,
       description: this.newForm.controls['description'].value,
       content: this.newForm.controls['content'].value
     }
@@ -98,9 +105,9 @@ export class PostComponent implements OnInit {
   }
 
   delete() {
-    this.blogService.deletePost(this.post.group, this.post).then( () => {
+    this.blogService.deletePost(this.selectedPost.group, this.selectedPost).then( () => {
       // this.session.setPost(null);
-      this.router.navigate(['/blog/' + this.post.group]);
+      this.router.navigate(['/blog/' + this.selectedPost.group]);
     }, (error: any) => {
       console.log(error);
     });
