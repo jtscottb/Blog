@@ -3,6 +3,12 @@
     background-color: beige;
     font-family: Arial, Helvetica, sans-serif;
 }
+.card-container {
+    width: auto;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-evenly;
+}
 #background {
     background: url('https://render.fineartamerica.com/images/rendered/default/print/8/5.5/break/images/artworkimages/medium/2/dark-blue-grunge-background-caracterdesign.jpg') no-repeat;
     background-size: cover;
@@ -28,42 +34,4 @@ img {
     object-fit: cover;
     border-top-left-radius: 10px;
     border-top-right-radius: 10px;
-}
-
-/* ----------- iPhone X ----------- */
-
-/* Portrait and Landscape */
-@media only screen 
-    and (min-device-width: 375px) 
-    and (max-device-width: 812px) 
-    and (-webkit-min-device-pixel-ratio: 3) {
-    
-}
-/* Portrait */
-@media only screen 
-    and (min-device-width: 375px) 
-    and (max-device-width: 812px) 
-    and (-webkit-min-device-pixel-ratio: 3)
-    and (orientation: portrait) {
-        #about {
-            padding: 3vw;
-        }
-
-        .card {
-            width: 40%;
-        }
-}
-/* Landscape */
-@media only screen 
-    and (min-device-width: 375px) 
-    and (max-device-width: 812px) 
-    and (-webkit-min-device-pixel-ratio: 3)
-    and (orientation: landscape) {
-        #about {
-            padding: 3vh;
-        }
-
-        .card {
-            width: 40%;
-        }
 }

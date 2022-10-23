@@ -16,7 +16,7 @@
 <div id="collections">
     <div class="posts">
         <h3>Collections</h3>
-        <div class="post-container" *ngFor="let post of latestPosts">
+        <div class="card-container" *ngFor="let post of latestPosts">
             <a routerLink="/post">
                 <div class="card" (click)="setPost(post)">
                     <div class="card-body">

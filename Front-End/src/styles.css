@@ -23,20 +23,24 @@ body {
     left: 0;
     z-index: 100;
 }
+.container-fluid {
+    padding: 0;
+}
 /* ----------------------------------------------------------------------- */
 /* ADMIN SECTION */
 /* ----------------------------------------------------------------------- */
 .admin p {
     color: white;
     margin: 0;
-    padding: 0 1.5em;
+    padding-right: 1.5em;
     /* font-size: 14px; */
     font-family: 'Times New Roman', Times, serif !important;
 }
 .admin {
     display: flex;
-    flex-wrap: wrap;
+    flex-wrap: nowrap;
     align-items: center;
+    justify-content: flex-end;
 }
 .error {
     color: red;
@@ -59,7 +63,7 @@ body {
     width: 100%;
     margin: 1em 0;
 }
-.post-container {
+.card-container {
     width: 20%;
     margin: 1em;
 }
@@ -81,3 +85,52 @@ body {
 /* ---------------------------------------------------------------------- */
 /* END BLOG POSTS */
 /* ---------------------------------------------------------------------- */
+
+/* ----------- iPhone X ------------------------------------------------- */
+
+/* Portrait and Landscape */
+@media only screen 
+    and (min-device-width: 375px) 
+    and (max-device-width: 812px) 
+    and (-webkit-min-device-pixel-ratio: 3) {
+        .card-container {
+            width: 80%;
+        }
+        .posts {
+            justify-content: center;
+        }
+        .card-container > .card {
+            width: 50% !important;
+        }
+        .admin {
+            margin: 0 1em;
+        }
+}
+/* Portrait */
+@media only screen 
+    and (min-device-width: 375px) 
+    and (max-device-width: 812px) 
+    and (-webkit-min-device-pixel-ratio: 3)
+    and (orientation: portrait) {
+        #title {
+            /* padding: 5vw; */
+        }
+
+        .card {
+            /* width: 15vh; */
+        }
+}
+/* Landscape */
+@media only screen 
+    and (min-device-width: 375px) 
+    and (max-device-width: 812px) 
+    and (-webkit-min-device-pixel-ratio: 3)
+    and (orientation: landscape) {
+        #title {
+            /* padding: 5vh; */
+        }
+
+        .card {
+            /* width: 15vw; */
+        }
+}
