@@ -1,3 +1,6 @@
+.row {
+    flex-wrap: nowrap;
+}
 .row,
 .col {
     max-width: 100%;
@@ -9,7 +12,8 @@
 /* -------------------------------------------------------------------- */
 .col:first-child {
     background-color: rgb(33, 37, 41);
-    max-width: 20% !important;
+    /* max-width: 20% !important; */
+    max-width: min-content !important;
     border-top: solid rgba(186, 181, 181, 0.979);
 }
 :host ::ng-deep .col:first-child .mat-form-field-wrapper {
@@ -29,8 +33,11 @@
 }
 .posts {
     overflow-y: auto;
+    margin-top: 1em;
     padding: 1em 0;
     max-height: 100%;
+    border-top: solid rgba(186, 181, 181, 0.979);
+    border-bottom: solid rgba(186, 181, 181, 0.979);
 }
 .post {
     width: 100%;

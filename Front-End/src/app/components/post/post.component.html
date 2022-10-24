@@ -5,13 +5,13 @@
             <input matInput type="text" [(ngModel)]="searchString" (input)="filterPosts()">
         </mat-form-field>
         <div class="posts">
-            <h6 class="post" *ngFor="let post of filteredPosts" (click)="selectedPost = post">
+            <h6 class="post" *ngFor="let post of filteredPosts" (click)="setPost(post)">
                 <b>{{post.description}}</b> - {{post.date.toDate() | date: 'short'}}
             </h6>
         </div>
     </div>
     <div class="col">
-        <div id="page-background">
+        <div id="page-background" #screen>
             <div class="button-group">
                 <div *ngIf="isAdmin">
                     <button mat-raised-button color="accent" (click)="operation = 'new'">
@@ -29,11 +29,14 @@
                     <button mat-raised-button color="accent" (click)="addDoc()" *ngIf="operation == 'new'" [disabled]="newForm.invalid">
                         Add
                     </button>
+                    <button mat-raised-button color="warn" (click)="cancel()" *ngIf="operation">
+                        Cancel
+                    </button>
                 </div>
             </div>
             <div id="page">
                 <div class="d-flex">
-                    <div id="title" *ngIf="!operation">
+                    <div id="title" *ngIf="!operation && selectedPost">
                         <h1>{{selectedPost.title}} | {{selectedPost.group | titlecase}}</h1>
         
                         <h4>Created on - {{selectedPost.date.toDate() | date : 'short'}}</h4>
@@ -66,7 +69,7 @@
                 <hr>
         
                 <div id="content">
-                    <p *ngIf="!operation">{{selectedPost.content}}</p>
+                    <p *ngIf="!operation && selectedPost">{{selectedPost.content}}</p>
                     <mat-form-field [formGroup]="editForm" *ngIf="operation == 'edit'">
                         <textarea matInput formControlName="content"></textarea>
                     </mat-form-field>

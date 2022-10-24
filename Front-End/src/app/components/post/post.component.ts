@@ -1,11 +1,13 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { BehaviorSubject, Observable, Observer, Subscription } from 'rxjs';
+import { Observable, Observer, Subscription, tap } from 'rxjs';
 import { Timestamp } from 'firebase/firestore';
 import { Post } from 'src/app/models/post';
 import { BlogService } from 'src/app/services/blog.service';
 import { SessionService } from 'src/app/services/session.service';
 import { UntypedFormGroup, UntypedFormBuilder, UntypedFormControl, Validators } from '@angular/forms';
+import { NgxCaptureService } from 'ngx-capture';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 
 @Component({
   selector: 'app-post',
@@ -34,46 +36,50 @@ export class PostComponent implements OnInit {
 
   private subs: Subscription[];
   editForm!: UntypedFormGroup;
-  newForm!: UntypedFormGroup;
+  newForm: UntypedFormGroup;
+  @ViewChild('screen', {static: true}) screen: any;
 
   constructor(private router: Router,
               private route: ActivatedRoute,
               private blogService: BlogService,
               private session: SessionService,
-              private fb: UntypedFormBuilder) {
+              private fb: UntypedFormBuilder,
+              private captureService: NgxCaptureService,
+              private http: HttpClient) {
     let u = this.session.getIsAdmin().subscribe( value => this.isAdmin = value);
     this.subs = [u];
+    
+    this.newForm = this.fb.group({
+      group: new UntypedFormControl('', Validators.required),
+      description: new UntypedFormControl('', Validators.required),
+      content: new UntypedFormControl('', Validators.required)
+    });
   }
 
   ngOnInit(): void {
     const id = this.route.snapshot.paramMap.get('id')?.toString();
     const type = this.route.snapshot.paramMap.get('type')?.toString();
     if(type && id) {
-      this.blogService.getPost(type, id).then( (post: Post) => {
-        this.selectedPost = post;
-        this.getCategoryPosts();
-        this.getCategoryTypes();
-      });
+      this.getPost(type, id);
     }
-
-    /* let p = this.session.getPost().subscribe( (post: Post) => {
-      post.date = new Timestamp(post.date.seconds, post.date.nanoseconds);
-      this.selectedPost = post;
-    }); */
-
-    this.editForm = this.fb.group({
-      description: new UntypedFormControl(this.selectedPost.description, Validators.required),
-      content: new UntypedFormControl(this.selectedPost.content, Validators.required)
-    })
-    this.newForm = this.fb.group({
-      group: new UntypedFormControl('', Validators.required),
-      description: new UntypedFormControl('', Validators.required),
-      content: new UntypedFormControl('', Validators.required)
-    })
+    setTimeout( () => this.updateOpenGraph(), 5000 );
   }
 
   ngOnDestroy() {
     this.subs.forEach( s => s.unsubscribe());
+  }
+
+  getPost(type: string, id: string) {
+    this.blogService.getPost(type, id).then( (post: Post) => {
+      this.selectedPost = post;
+      this.getCategoryPosts();
+      this.getCategoryTypes();
+
+      this.editForm = this.fb.group({
+        description: new UntypedFormControl(this.selectedPost.description, Validators.required),
+        content: new UntypedFormControl(this.selectedPost.content, Validators.required)
+      });
+    });
   }
 
   getCategoryPosts() {
@@ -97,8 +103,10 @@ export class PostComponent implements OnInit {
     }
   }
 
-  back() {
-    this.router.navigate(['']);
+  setPost(post: Post) {
+    this.selectedPost = post;
+    this.router.navigate(['post/' + post.group + '/' + post.docID]);
+    this.cancel()
   }
 
   submitEdit() {
@@ -132,12 +140,33 @@ export class PostComponent implements OnInit {
 
   delete() {
     this.blogService.deletePost(this.selectedPost.group, this.selectedPost).then( () => {
-      // this.session.setPost(null);
       this.router.navigate(['/blog/' + this.selectedPost.group]);
     }, (error: any) => {
       console.log(error);
     });
     this.getCategoryPosts();
+  }
+
+  cancel() {
+    this.operation = undefined;
+  }
+
+  updateOpenGraph() {
+    let title: string = this.selectedPost.title + ' | ' + this.selectedPost.group;
+    let description: string = '';
+    let image: string = 'https://adventuring-with-the-banks.web.app/assets/photos/openGraph.png';
+    
+    var myFormData = new FormData();
+    const headers = new HttpHeaders();
+    headers.append('Content-Type', 'multipart/form-data');
+    headers.append('Accept', 'application/json');
+
+    this.captureService.getImage(this.screen.nativeElement, true).subscribe( img => {
+      console.log(img);
+      myFormData.append('image', img);
+      this.http.post('./assets/photos/openGraph.png', myFormData, {headers: headers}).subscribe( data => console.log(data));
+    });
+    this.blogService.updateOpenGraph(title, description);
   }
 
 }

@@ -13,9 +13,9 @@
         <button mat-stroked-button color="primary" [disabled]="form.invalid" (click)="login()">
             Submit
         </button>
-        <div *ngIf="showError">
+        <div *ngIf="showError && loginError">
             <p class="error">
-                {{loginError?.code}} - {{loginError?.message}}
+                {{loginError.code}} - {{loginError.message}}
                 Incorrect email or password.
             </p>
         </div>
