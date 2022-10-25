@@ -154,7 +154,7 @@ export class PostComponent implements OnInit {
   updateOpenGraph() {
     let title: string = this.selectedPost.title + ' | ' + this.selectedPost.group;
     let description: string = '';
-    let image: string = 'https://adventuring-with-the-banks.web.app/assets/photos/openGraph.png';
+    let image: string = 'https://adventuring-with-the-banks.web.app/assets/photos/openGraph.JPG';
     
     var myFormData = new FormData();
     const headers = new HttpHeaders();
@@ -162,11 +162,10 @@ export class PostComponent implements OnInit {
     headers.append('Accept', 'application/json');
 
     this.captureService.getImage(this.screen.nativeElement, true).subscribe( img => {
-      console.log(img);
       myFormData.append('image', img);
-      this.http.post('./assets/photos/openGraph.png', myFormData, {headers: headers}).subscribe( data => console.log(data));
+      // this.http.put('/assets/photos/openGraph.JPG', myFormData, {headers: headers}).subscribe( data => console.log(data));
     });
-    this.blogService.updateOpenGraph(title, description);
+    // this.blogService.updateOpenGraph(title, description, image);
   }
 
 }

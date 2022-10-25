@@ -106,6 +106,9 @@ body {
         .admin {
             margin: 0 1em;
         }
+        .col:has(#page-background) {
+            min-width: 100%;
+        }
 }
 /* Portrait */
 @media only screen 
