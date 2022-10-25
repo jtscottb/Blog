@@ -3,7 +3,7 @@ import { FirebaseApp } from '@angular/fire/app';
 import { Firestore } from '@angular/fire/firestore';
 import { Meta } from '@angular/platform-browser';
 import { initializeApp } from 'firebase/app';
-import { getFirestore, collection, addDoc, doc, getDoc, getDocs, setDoc, updateDoc, deleteDoc, QueryDocumentSnapshot, QuerySnapshot, DocumentSnapshot, Timestamp, query, collectionGroup, where, orderBy, limit } from 'firebase/firestore';
+import { getFirestore, collection, addDoc, doc, getDoc, getDocs, setDoc, updateDoc, deleteDoc, QueryDocumentSnapshot, QuerySnapshot, DocumentSnapshot, Timestamp } from 'firebase/firestore';
 import { BehaviorSubject, Observable, of } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { Post } from '../models/post';
@@ -29,7 +29,7 @@ export class BlogService {
   ]
   private latestPosts: Post[] = [];
 
-  constructor(private meta: Meta) {
+  constructor() {
   }
 
   async getPosts(blog: string): Promise<Post[]> {
@@ -110,14 +110,6 @@ export class BlogService {
       });
     }
     return of(this.latestPosts);
-  }
-
-  updateOpenGraph(title: string, description: string, image?: string) {
-    this.meta.updateTag({property: 'og:title', content: title});
-    this.meta.updateTag({property: 'og:description', content: description});
-    if(image) {
-      this.meta.updateTag({property: 'og:image', content: image});
-    }
   }
   
 }

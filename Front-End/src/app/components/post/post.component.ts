@@ -6,8 +6,6 @@ import { Post } from 'src/app/models/post';
 import { BlogService } from 'src/app/services/blog.service';
 import { SessionService } from 'src/app/services/session.service';
 import { UntypedFormGroup, UntypedFormBuilder, UntypedFormControl, Validators } from '@angular/forms';
-import { NgxCaptureService } from 'ngx-capture';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
 
 @Component({
   selector: 'app-post',
@@ -43,9 +41,7 @@ export class PostComponent implements OnInit {
               private route: ActivatedRoute,
               private blogService: BlogService,
               private session: SessionService,
-              private fb: UntypedFormBuilder,
-              private captureService: NgxCaptureService,
-              private http: HttpClient) {
+              private fb: UntypedFormBuilder) {
     let u = this.session.getIsAdmin().subscribe( value => this.isAdmin = value);
     this.subs = [u];
     
@@ -62,7 +58,6 @@ export class PostComponent implements OnInit {
     if(type && id) {
       this.getPost(type, id);
     }
-    setTimeout( () => this.updateOpenGraph(), 5000 );
   }
 
   ngOnDestroy() {
@@ -152,23 +147,6 @@ export class PostComponent implements OnInit {
 
   cancel() {
     this.operation = undefined;
-  }
-
-  updateOpenGraph() {
-    let title: string = this.selectedPost.title + ' | ' + this.selectedPost.group;
-    let description: string = '';
-    let image: string = 'https://adventuring-with-the-banks.web.app/assets/photos/openGraph.JPG';
-    
-    var myFormData = new FormData();
-    const headers = new HttpHeaders();
-    headers.append('Content-Type', 'multipart/form-data');
-    headers.append('Accept', 'application/json');
-
-    this.captureService.getImage(this.screen.nativeElement, true).subscribe( img => {
-      myFormData.append('image', img);
-      // this.http.put('/assets/photos/openGraph.JPG', myFormData, {headers: headers}).subscribe( data => console.log(data));
-    });
-    // this.blogService.updateOpenGraph(title, description, image);
   }
 
 }
