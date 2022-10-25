@@ -84,6 +84,9 @@ export class PostComponent implements OnInit {
 
   getCategoryPosts() {
     this.blogService.getPosts(this.selectedPost.group).then( (posts: Post[]) => {
+      posts.sort( (a: Post, b: Post) => {
+        return a.description.localeCompare(b.description);
+      });
       this.posts = posts;
       this.filteredPosts = posts;
     });
