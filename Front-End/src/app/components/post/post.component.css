@@ -17,18 +17,22 @@
     max-width: min-content !important;
     border-top: solid rgba(186, 181, 181, 0.979);
 }
+/* TODO(mdc-migration): The following rule targets internal classes of form-field that may no longer apply for the MDC version. */
 :host ::ng-deep .col:first-child .mat-form-field-wrapper {
     padding: 0;
 }
+/* TODO(mdc-migration): The following rule targets internal classes of form-field that may no longer apply for the MDC version. */
 :host ::ng-deep .col:first-child .mat-form-field-infix {
     background-color: white;
     color: black;
     border-radius: 5px;
 }
+/* TODO(mdc-migration): The following rule targets internal classes of form-field that may no longer apply for the MDC version. */
 :host ::ng-deep .col:first-child .mat-form-field-infix,
 :host ::ng-deep .col:first-child .mat-form-field-label {
     padding-left: 2.5px;
 }
+/* TODO(mdc-migration): The following rule targets internal classes of form-field that may no longer apply for the MDC version. */
 :host ::ng-deep .col:first-child .mat-form-field-underline {
     opacity: 0;
 }
@@ -89,7 +93,7 @@
 /* -------------------------------------------------------------------- */
 /* EDIT PAGE INPUT */
 /* -------------------------------------------------------------------- */
-.mat-form-field {
+.mat-mdc-form-field {
     width: 100%;
 }
 textarea {

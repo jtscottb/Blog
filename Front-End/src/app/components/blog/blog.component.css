@@ -15,7 +15,7 @@
     text-align: center;
     margin: 0;
 }
-.mat-raised-button {
+.mat-mdc-raised-button {
     position: relative;
     float: left;
     max-width: fit-content;
